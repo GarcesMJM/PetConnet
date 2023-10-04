@@ -1,10 +1,9 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 function App() {
   return (
-   <div className="App">
-     
-   
- 
-     
+     <div className="App">
        <div class="header-wrap">
          <header>
            <div class="container">
@@ -24,7 +23,7 @@ function App() {
                <div class="menu">
                  <ul>
                    <li><a href="#">Home</a></li>
-                   <li><a href="#">Properties</a></li>
+                   <li><a href="/profile.js">Profile</a></li>
                    <li><a href="#">Agents</a></li>
                    <li><a href="#">Blog</a></li>
                  </ul>
@@ -663,11 +662,8 @@ function App() {
              </div>
            </div>
          </footer>
-       </div>
- 
- 
-       
-   </div>
+       </div>   
+      </div>
   );
  }
  export default App;
