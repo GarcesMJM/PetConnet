@@ -22,10 +22,8 @@ function Home() {
 
                             <div class="menu">
                                 <ul>
-                                    <li><a href="#">Home</a></li>
-                                    <li><Link to="/profile">Profile</Link></li>
-                                    <li><Link to="/contact">Contact</Link></li>
-                                    <li><a href="#">Blog</a></li>
+                                    <li><Link to="/profile" class="btn btn-outline-primary">Profile</Link></li>
+                                    <li><Link to="/contact" class="btn btn-outline-primary">Contact</Link></li>
                                 </ul>
                             </div>
 
