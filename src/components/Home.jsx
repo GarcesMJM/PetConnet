@@ -28,7 +28,7 @@ function Home() {
                             </div>
 
                             <div class="cta">
-                                <a href="#" class="btn btn-outline-primary">Log in</a>
+                            <Link to="/login" class="btn btn-outline-primary">Log in</Link>
                             </div>
 
                         </div>
