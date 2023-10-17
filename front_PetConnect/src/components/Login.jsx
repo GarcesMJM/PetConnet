@@ -25,15 +25,17 @@ const Login = () => {
 
   const sendDataToBackend = async () => {
     try {
-      const response = await fetch('http://localhost:5000/registro', {
+      const response = await fetch('http://localhost:5000/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ email, password, username })
       });
 
       const data = await response.json();
+
+      // Aquí puedes manejar la respuesta del backend si es necesario
 
     } catch (error) {
       console.error('Error al enviar datos al backend:', error);

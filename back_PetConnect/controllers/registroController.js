@@ -1,13 +1,12 @@
 const admin = require('firebase-admin');
 const db = admin.firestore();
-const usersRef = db.collection('Usuarios');
+const usersRef = db.collection('usuarios');
 
 async function registro(req, res) {
   try {
     const { email, password, username } = req.body;
 
-    // Verificar si el nombre de usuario ya está en uso
-    const usernameExists = await usersRef.where('username', '==', username).get();
+    const usernameExists = await usersRef.where('usuario', '==', username).get();
 
     if (!usernameExists.empty) {
       return res.status(400).send({ message: 'El nombre de usuario ya está en uso' });
@@ -21,7 +20,7 @@ async function registro(req, res) {
 
     await usersRef.doc(userRecord.uid).set({
       email,
-      username,
+      usuario: username,
     });
 
     res.status(201).send({ message: 'Usuario registrado exitosamente' });
