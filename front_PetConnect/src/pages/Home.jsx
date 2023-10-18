@@ -360,13 +360,12 @@ function Home() {
                         </div>
 
                         <div class="banner-box__content">
-                            <h1 class="banner-box__title h1">Find your best Real Estate</h1>
+                        <h1 class="banner-box__title h1">Encuentra los mejores productos para tus mascotas</h1>
                             <div class="banner-box__txt text-ex-large">
-                                We provide a complete service for the sale, purchase or rental of
-                                real estate.
+                            Ofrecemos una amplia variedad de productos y accesorios para el cuidado y bienestar de tus mascotas.
                             </div>
                             <div class="banner-box__cta">
-                                <a href="#" class="btn btn-primary">Contact Us</a>
+                                <a href="#" class="btn btn-primary">Contáctanos</a>
                             </div>
                         </div>
 
@@ -384,10 +383,7 @@ function Home() {
                                         <img src="assets/images/logo.svg" alt="" />
                                     </div>
                                     <p class="text-small pb-3">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                        do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                        Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                                        laboris nisi ut aliquip ex ea commodo consequat.
+                                    Ofrecemos productos de alta calidad para el cuidado de tus mascotas. ¡Descubre nuestra amplia selección!
                                     </p>
                                     <div class="d-none d-lg-block">
                                         <div class="social-list pb-3">
@@ -414,21 +410,19 @@ function Home() {
                                                 </li>
                                             </ul>
                                         </div>
-                                        <p class="text-small">© 2023 . All rights reserved.</p>
+                                        <p class="text-small">© 2023 . Todos los derechos reservados.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-7 col-md-12">
                                 <div class="row">
                                     <div class="col-md-3 col-sm-6 col-6 pb-4 pb-md-0">
-                                        <h5 class="h4 pb-3">Take a tour</h5>
+                                        <h5 class="h4 pb-3">Explora</h5>
                                         <div class="quick-links">
                                             <ul>
-                                                <li><a href="#">Features</a></li>
-                                                <li><a href="#">Partners</a></li>
-                                                <li><a href="#">Pricing</a></li>
-                                                <li><a href="#">Product</a></li>
-                                                <li><a href="#">Support</a></li>
+                                                <li><a href="#">Perfil</a></li>
+                                                <li><a href="#">Post</a></li>
+                                                <li><a href="#">Mascotas</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -436,26 +430,25 @@ function Home() {
                                         <h5 class="h4 pb-3">Our Company</h5>
                                         <div class="quick-links">
                                             <ul>
-                                                <li><a href="#">About Us</a></li>
-                                                <li><a href="#">Agents</a></li>
+                                                <li><a href="#">Acerca de Nosotros</a></li>
                                                 <li><a href="#">Blog</a></li>
-                                                <li><a href="#">Media</a></li>
-                                                <li><a href="#">Contact Us</a></li>
+                                                <li><a href="#">Servicios</a></li>
+                                                <li><a href="#">Contáctanos</a></li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <h5 class="h4 pb-3">Subscribe</h5>
+                                        <h5 class="h4 pb-3">Suscríbete</h5>
                                         <div class="subscribe-form-wrap">
                                             <p class="text-small">
-                                                Subscribe to get latest property, blog news from us
+                                            Suscríbete para recibir las últimas noticias y ofertas de nuestra tienda.
                                             </p>
                                             <form class="subscribe-form form-wrap">
                                                 <div class="form-group">
                                                     <input
                                                         type="email"
                                                         class="form-control"
-                                                        placeholder="Email Address"
+                                                        placeholder="Correo electrónico"
                                                     />
                                                     <div class="cta">
                                                         <button
@@ -496,7 +489,7 @@ function Home() {
                                     </li>
                                 </ul>
                             </div>
-                            <p class="text-small">© 2023 . All rights reserved.</p>
+                            <p class="text-small">© 2023 . Todos los derechos reservados.</p>
                         </div>
                     </div>
                 </footer>
