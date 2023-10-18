@@ -255,16 +255,15 @@ function Home() {
                                             <a href="#">Golden Retriever</a>
                                         </div>
                                         <div class="property-box__amenities">
-                                            <span>En Adopción</span>
+                                            <span>En Adopción</span><br/>
                                             <span>5 años</span>
-                                            <span></span>
                                         </div>
                                         <div class="property-box__post-price">
                                             <div class="property-box__post-by">
-                                                Posted by <a href="#">X Builder</a>
+                                                Subido por: <a href="#">Jaime</a>
                                             </div>
                                             <div class="property-box__price">
-                                                <span class="badge">$45,545</span>
+                                                <span class="badge">Me Interesa</span>
                                             </div>
                                         </div>
                                     </div>
@@ -273,23 +272,22 @@ function Home() {
                             <li class="col-md-6">
                                 <div class="property-box">
                                     <div class="property-box__left">
-                                        <img src="https://picsum.photos/id/174/158/200" alt="" />
+                                        <img src="assets/images/gato-blanco.png" alt="" />
                                     </div>
                                     <div class="property-box__right">
                                         <div class="property-box__title h3">
-                                            <a href="#">103/143 West Street, India</a>
+                                            <a href="#">Nievecita</a>
                                         </div>
                                         <div class="property-box__amenities">
-                                            <span>10 Bedroom</span>
-                                            <span>150 M</span>
-                                            <span>2 Garage</span>
+                                            <span>Perdido</span><br/>
+                                            <span>2 años</span>
                                         </div>
                                         <div class="property-box__post-price">
                                             <div class="property-box__post-by">
-                                                Posted by <a href="#">X Builder</a>
+                                                Subido por: <a href="#">Amanda</a>
                                             </div>
                                             <div class="property-box__price">
-                                                <span class="badge">$45,545</span>
+                                                <span class="badge">Es mío</span>
                                             </div>
                                         </div>
                                     </div>
@@ -298,23 +296,22 @@ function Home() {
                             <li class="col-md-6">
                                 <div class="property-box">
                                     <div class="property-box__left">
-                                        <img src="https://picsum.photos/id/164/158/200" alt="" />
+                                        <img src="assets/images/golden.jpeg" alt="" />
                                     </div>
                                     <div class="property-box__right">
                                         <div class="property-box__title h3">
-                                            <a href="#">103/143 West Street, Crows Nest</a>
+                                            <a href="#">Golden Retriever</a>
                                         </div>
                                         <div class="property-box__amenities">
-                                            <span>10 Bedroom</span>
-                                            <span>150 M</span>
-                                            <span>2 Garage</span>
+                                            <span>En Adopción</span><br/>
+                                            <span>5 años</span>
                                         </div>
                                         <div class="property-box__post-price">
                                             <div class="property-box__post-by">
-                                                Posted by <a href="#">X Builder</a>
+                                                Subido por: <a href="#">Jaime</a>
                                             </div>
                                             <div class="property-box__price">
-                                                <span class="badge">$45,545</span>
+                                                <span class="badge">Me Interesa</span>
                                             </div>
                                         </div>
                                     </div>
@@ -323,73 +320,22 @@ function Home() {
                             <li class="col-md-6">
                                 <div class="property-box">
                                     <div class="property-box__left">
-                                        <img src="https://picsum.photos/id/220/158/200" alt="" />
+                                        <img src="assets/images/golden.jpeg" alt="" />
                                     </div>
                                     <div class="property-box__right">
                                         <div class="property-box__title h3">
-                                            <a href="#">103/143 West Street, Crows Nest</a>
+                                            <a href="#">Golden Retriever</a>
                                         </div>
                                         <div class="property-box__amenities">
-                                            <span>10 Bedroom</span>
-                                            <span>150 M</span>
-                                            <span>2 Garage</span>
+                                            <span>En Adopción</span><br/>
+                                            <span>5 años</span>
                                         </div>
                                         <div class="property-box__post-price">
                                             <div class="property-box__post-by">
-                                                Posted by <a href="#">X Builder</a>
+                                                Subido por: <a href="#">Jaime</a>
                                             </div>
                                             <div class="property-box__price">
-                                                <span class="badge">$45,545</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-md-6">
-                                <div class="property-box">
-                                    <div class="property-box__left">
-                                        <img src="https://picsum.photos/id/232/158/200" alt="" />
-                                    </div>
-                                    <div class="property-box__right">
-                                        <div class="property-box__title h3">
-                                            <a href="#">103/143 West Street, Crows Nest</a>
-                                        </div>
-                                        <div class="property-box__amenities">
-                                            <span>10 Bedroom</span>
-                                            <span>150 M</span>
-                                            <span>2 Garage</span>
-                                        </div>
-                                        <div class="property-box__post-price">
-                                            <div class="property-box__post-by">
-                                                Posted by <a href="#">X Builder</a>
-                                            </div>
-                                            <div class="property-box__price">
-                                                <span class="badge">$45,545</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-md-6">
-                                <div class="property-box">
-                                    <div class="property-box__left">
-                                        <img src="https://picsum.photos/id/270/158/200" alt="" />
-                                    </div>
-                                    <div class="property-box__right">
-                                        <div class="property-box__title h3">
-                                            <a href="#">103/143 West Street, Crows Nest</a>
-                                        </div>
-                                        <div class="property-box__amenities">
-                                            <span>10 Bedroom</span>
-                                            <span>150 M</span>
-                                            <span>2 Garage</span>
-                                        </div>
-                                        <div class="property-box__post-price">
-                                            <div class="property-box__post-by">
-                                                Posted by <a href="#">X Builder</a>
-                                            </div>
-                                            <div class="property-box__price">
-                                                <span class="badge">$45,545</span>
+                                                <span class="badge">Me Interesa</span>
                                             </div>
                                         </div>
                                     </div>
