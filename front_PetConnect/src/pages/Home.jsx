@@ -10,7 +10,7 @@ function Home() {
 
                         <div class="logo">
                             <a href="#">
-                            <h1 >PetConnect</h1>
+                            <h1>PetConnect</h1>
                             </a>
                         </div>
 
@@ -68,7 +68,7 @@ function Home() {
                                         role="tab"
                                         aria-selected="true"
                                     >
-                                        Adoptar
+                                        Adopta
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -80,7 +80,7 @@ function Home() {
                                         role="tab"
                                         aria-selected="false"
                                     >
-                                        Ofrecer
+                                        Ofrece
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -92,7 +92,7 @@ function Home() {
                                         role="tab"
                                         aria-selected="false"
                                     >
-                                        Perdidos
+                                        Reporta
                                     </button>
                                 </li>
                             </ul>
@@ -120,29 +120,14 @@ function Home() {
                                                     </div>
                                                     <div class="col-md-6 col-lg-4">
                                                         <div class="form-group mb-lg-0">
-                                                            <label class="form-label">Property Type</label>
+                                                            <label class="form-label">Mascota</label>
                                                             <select class="form-control">
-                                                                <option>Choose Property Type</option>
-                                                                <option>Residential Apartment</option>
-                                                                <option>Independent/Builder Floor</option>
-                                                                <option>Independent House/Villa</option>
-                                                                <option>Residential Land</option>
-                                                                <option>1 RK/ Studio Apartment</option>
-                                                                <option>Farm House</option>
-                                                                <option>Serviced Apartments</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-4">
-                                                        <div class="form-group mb-md-0">
-                                                            <label class="form-label">Price Range</label>
-                                                            <select class="form-control">
-                                                                <option>Choose Price Range</option>
-                                                                <option>$0-1000</option>
-                                                                <option>$1000-$2000</option>
-                                                                <option>$2000-$3000</option>
-                                                                <option>$3000-$4000</option>
-                                                                <option>$4000-$5000</option>
+                                                                <option>Selecciona el tipo</option>
+                                                                <option>Gatos</option>
+                                                                <option>Perros</option>
+                                                                <option>Hámsters</option>
+                                                                <option>Caballos</option>
+                                                                <option>Mini Pig</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -163,44 +148,29 @@ function Home() {
                                                 <div class="row">
                                                     <div class="col-md-6 col-lg-4">
                                                         <div class="form-group mb-lg-0">
-                                                            <label class="form-label">Location</label>
+                                                            <label class="form-label">Ubicación</label>
                                                             <select class="form-control">
-                                                                <option>Select Your City</option>
-                                                                <option>Amsterdam</option>
-                                                                <option>Barcelona</option>
-                                                                <option>Beijing</option>
-                                                                <option>Beirut</option>
-                                                                <option>Bergen</option>
-                                                                <option>Copenhagen</option>
-                                                                <option>Doha</option>
+                                                                <option>Selecciona tu ciudad</option>
+                                                                <option>Medellín</option>
+                                                                <option>Cali</option>
+                                                                <option>Bogotá</option>
+                                                                <option>Cartagena</option>
+                                                                <option>Bucaramanga</option>
+                                                                <option>Santa Marta</option>
+                                                                <option>Cúcuta</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-lg-4">
                                                         <div class="form-group mb-lg-0">
-                                                            <label class="form-label">Property Type</label>
+                                                            <label class="form-label">Mascota</label>
                                                             <select class="form-control">
-                                                                <option>Choose Property Type</option>
-                                                                <option>Residential Apartment</option>
-                                                                <option>Independent/Builder Floor</option>
-                                                                <option>Independent House/Villa</option>
-                                                                <option>Residential Land</option>
-                                                                <option>1 RK/ Studio Apartment</option>
-                                                                <option>Farm House</option>
-                                                                <option>Serviced Apartments</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-4">
-                                                        <div class="form-group mb-md-0">
-                                                            <label class="form-label">Price Range</label>
-                                                            <select class="form-control">
-                                                                <option>Choose Price Range</option>
-                                                                <option>$0-1000</option>
-                                                                <option>$1000-$2000</option>
-                                                                <option>$2000-$3000</option>
-                                                                <option>$3000-$4000</option>
-                                                                <option>$4000-$5000</option>
+                                                                <option>Selecciona el tipo</option>
+                                                                <option>Gatos</option>
+                                                                <option>Perros</option>
+                                                                <option>Hámsters</option>
+                                                                <option>Caballos</option>
+                                                                <option>Mini Pig</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -221,44 +191,29 @@ function Home() {
                                                 <div class="row">
                                                     <div class="col-md-6 col-lg-4">
                                                         <div class="form-group mb-lg-0">
-                                                            <label class="form-label">Location</label>
+                                                            <label class="form-label">Ubicación</label>
                                                             <select class="form-control">
-                                                                <option>Select Your City</option>
-                                                                <option>Amsterdam</option>
-                                                                <option>Barcelona</option>
-                                                                <option>Beijing</option>
-                                                                <option>Beirut</option>
-                                                                <option>Bergen</option>
-                                                                <option>Copenhagen</option>
-                                                                <option>Doha</option>
+                                                                <option>Selecciona tu ciudad</option>
+                                                                <option>Medellín</option>
+                                                                <option>Cali</option>
+                                                                <option>Bogotá</option>
+                                                                <option>Cartagena</option>
+                                                                <option>Bucaramanga</option>
+                                                                <option>Santa Marta</option>
+                                                                <option>Cúcuta</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-lg-4">
                                                         <div class="form-group mb-lg-0">
-                                                            <label class="form-label">Property Type</label>
+                                                            <label class="form-label">Mascota</label>
                                                             <select class="form-control">
-                                                                <option>Choose Property Type</option>
-                                                                <option>Residential Apartment</option>
-                                                                <option>Independent/Builder Floor</option>
-                                                                <option>Independent House/Villa</option>
-                                                                <option>Residential Land</option>
-                                                                <option>1 RK/ Studio Apartment</option>
-                                                                <option>Farm House</option>
-                                                                <option>Serviced Apartments</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-lg-4">
-                                                        <div class="form-group mb-md-0">
-                                                            <label class="form-label">Price Range</label>
-                                                            <select class="form-control">
-                                                                <option>Choose Price Range</option>
-                                                                <option>$0-1000</option>
-                                                                <option>$1000-$2000</option>
-                                                                <option>$2000-$3000</option>
-                                                                <option>$3000-$4000</option>
-                                                                <option>$4000-$5000</option>
+                                                                <option>Selecciona el tipo</option>
+                                                                <option>Gatos</option>
+                                                                <option>Perros</option>
+                                                                <option>Hámsters</option>
+                                                                <option>Caballos</option>
+                                                                <option>Mini Pig</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -280,69 +235,12 @@ function Home() {
                 </div>
             </div>
 
-            <div class="countries-wrap">
-
-                <div class="container">
-                    <div class="countries-wrap__title">
-                        <div class="row justify-content-center">
-                            <div class="col-xl-5 col-lg-7 col-md-10">
-                                <h2 class="h2 text-center">
-                                    We are available in many well-known countries
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="countries-list">
-
-                        <ul class="row">
-                            <li class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="countries-box">
-                                    <div class="countries-box__title">America</div>
-                                    <div class="countries-box__img">
-                                        <img src="assets/images/countrie-img-1.jpg" alt="" />
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="countries-box">
-                                    <div class="countries-box__title">Spain</div>
-                                    <div class="countries-box__img">
-                                        <img src="assets/images/countrie-img-2.jpg" alt="" />
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="countries-box">
-                                    <div class="countries-box__title">London</div>
-                                    <div class="countries-box__img">
-                                        <img src="assets/images/countrie-img-3.jpg" alt="" />
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="col-lg-3 col-md-6 col-sm-6">
-                                <div class="countries-box">
-                                    <div class="countries-box__title">France</div>
-                                    <div class="countries-box__img">
-                                        <img src="assets/images/countrie-img-4.jpg" alt="" />
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-            </div>
-
-
             <div class="recently-added-wrap">
                 <div class="container">
                     <div
                         class="recently-added-wrap__title d-md-flex justify-content-between"
                     >
-                        <h2 class="h2">Recently Added</h2>
-                        <div class="cta">
-                            <a href="#" class="btn btn-link">See all</a>
-                        </div>
+                        <h2 class="h2">Añadidos recientemente</h2>
                     </div>
 
                     <div class="property-list">
@@ -350,11 +248,11 @@ function Home() {
                             <li class="col-md-6">
                                 <div class="property-box">
                                     <div class="property-box__left">
-                                        <img src="https://picsum.photos/id/163/158/200" alt="" />
+                                        <img src="assets/images/golden.jpeg" alt="" />
                                     </div>
                                     <div class="property-box__right">
                                         <div class="property-box__title h3">
-                                            <a href="#">103/143 West Street, Crows Nest</a>
+                                            <a href="#">Border</a>
                                         </div>
                                         <div class="property-box__amenities">
                                             <span>10 Bedroom</span>
