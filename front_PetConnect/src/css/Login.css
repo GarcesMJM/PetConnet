@@ -1,11 +1,14 @@
-.login-container{
+.login-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   margin: auto;
   margin-top: 200px;
   width: 600px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  backdrop-filter: blur(10px); /* Desenfoque */
   padding-bottom: 30px;
+  border-radius: 10px; /* Borde redondeado */
 }
 
 .header{

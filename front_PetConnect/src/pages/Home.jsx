@@ -25,13 +25,9 @@ function Home() {
                                     <li><Link to="/profile" class="btn btn-outline-primary">Perfil</Link></li>
                                     <li><Link to="/posts" class="btn btn-outline-primary">Posts</Link></li>
                                     <li><Link to="/mascota" class="btn btn-outline-primary">Mascota</Link></li>
+                                    <li><Link to="/login" class="btn btn-outline-primary">Iniciar Sesión</Link></li>
                                 </ul>
                             </div>
-
-                            <div class="cta">
-                            <Link to="/login" class="btn btn-outline-primary">Iniciar Sesión</Link>
-                            </div>
-
                         </div>
                     </div>
                 </header>
