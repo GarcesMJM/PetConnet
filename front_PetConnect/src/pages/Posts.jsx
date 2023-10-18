@@ -1,11 +1,11 @@
 import React from "react";
-import Leftsidebar from "./Leftsidebar";
-import Maincontent from "./Maincontent";
-import Navbar from "./Navbar";
-import Rightsidebar from "./Rightsidebar";
-import "../css/Mascota.css";
+import Leftsidebar from "../components/Leftsidebar";
+import Maincontent from "../components/Maincontent";
+import Navbar from "../components/Navbar";
+import Rightsidebar from "../components/Rightsidebar";
+import "../css/Posts.css";
 
-export default function App() {
+export default function Posts() {
   return (
     <>
       <Navbar />

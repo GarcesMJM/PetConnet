@@ -23,7 +23,7 @@ function Home() {
                             <div class="menu">
                                 <ul>
                                     <li><Link to="/profile" class="btn btn-outline-primary">Profile</Link></li>
-                                    <li><Link to="/contact" class="btn btn-outline-primary">Contact</Link></li>
+                                    <li><Link to="/posts" class="btn btn-outline-primary">Posts</Link></li>
                                 </ul>
                             </div>
 
