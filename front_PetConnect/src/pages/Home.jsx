@@ -24,6 +24,7 @@ function Home() {
                                 <ul>
                                     <li><Link to="/profile" class="btn btn-outline-primary">Profile</Link></li>
                                     <li><Link to="/posts" class="btn btn-outline-primary">Posts</Link></li>
+                                    <li><Link to="/mascota" class="btn btn-outline-primary">mascota</Link></li>
                                 </ul>
                             </div>
 
