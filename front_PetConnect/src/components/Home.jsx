@@ -10,7 +10,7 @@ function Home() {
 
                         <div class="logo">
                             <a href="#">
-                                <img src="assets/images/logo.svg" alt="Real Estate" />
+                            <h1 >PetConnect</h1>
                             </a>
                         </div>
 
@@ -22,13 +22,13 @@ function Home() {
 
                             <div class="menu">
                                 <ul>
-                                    <li><Link to="/profile" class="btn btn-outline-primary">Profile</Link></li>
-                                    <li><Link to="/contact" class="btn btn-outline-primary">Contact</Link></li>
+                                    <li><Link to="/profile" class="btn btn-outline-primary">Perfil</Link></li>
+                                    <li><Link to="/contact" class="btn btn-outline-primary">Contacto</Link></li>
                                 </ul>
                             </div>
 
                             <div class="cta">
-                            <Link to="/login" class="btn btn-outline-primary">Log in</Link>
+                            <Link to="/login" class="btn btn-outline-primary">Iniciar Sesión</Link>
                             </div>
 
                         </div>
@@ -43,7 +43,7 @@ function Home() {
 
                         <div class="banner-box__img">
                             <img
-                                src="assets/images/banner-image.jpg"
+                                src="assets/images/banner-image.png"
                                 width="1300"
                                 height="634"
                                 alt=""
@@ -52,11 +52,10 @@ function Home() {
 
                         <div class="banner-box__content">
                             <h1 class="banner-box__title h1">
-                                Easy way to find a perfect property
+                                La mejor forma de adoptar una mascota
                             </h1>
                             <div class="banner-box__txt text-ex-large">
-                                We provide a complete service for the sale, purchase or rental of
-                                real estate.
+                                PetConnect® es todo lo que necesitas para adoptar una mascota o ponerla en adopción.
                             </div>
                         </div>
 
@@ -72,7 +71,7 @@ function Home() {
                                         role="tab"
                                         aria-selected="true"
                                     >
-                                        Rent
+                                        Adoptar
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -84,7 +83,7 @@ function Home() {
                                         role="tab"
                                         aria-selected="false"
                                     >
-                                        Buy
+                                        Ofrecer
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
@@ -96,7 +95,7 @@ function Home() {
                                         role="tab"
                                         aria-selected="false"
                                     >
-                                        Sell
+                                        Perdidos
                                     </button>
                                 </li>
                             </ul>
@@ -109,16 +108,16 @@ function Home() {
                                                 <div class="row">
                                                     <div class="col-md-6 col-lg-4">
                                                         <div class="form-group mb-lg-0">
-                                                            <label class="form-label">Location</label>
+                                                            <label class="form-label">Ubicación</label>
                                                             <select class="form-control">
-                                                                <option>Select Your City</option>
-                                                                <option>Amsterdam</option>
-                                                                <option>Barcelona</option>
-                                                                <option>Beijing</option>
-                                                                <option>Beirut</option>
-                                                                <option>Bergen</option>
-                                                                <option>Copenhagen</option>
-                                                                <option>Doha</option>
+                                                                <option>Selecciona tu ciudad</option>
+                                                                <option>Medellín</option>
+                                                                <option>Cali</option>
+                                                                <option>Bogotá</option>
+                                                                <option>Cartagena</option>
+                                                                <option>Bucaramanga</option>
+                                                                <option>Santa Marta</option>
+                                                                <option>Cúcuta</option>
                                                             </select>
                                                         </div>
                                                     </div>
