@@ -296,19 +296,19 @@ function Home() {
                             <li class="col-md-6">
                                 <div class="property-box">
                                     <div class="property-box__left">
-                                        <img src="assets/images/golden.jpeg" alt="" />
+                                        <img src="assets/images/labrador.jpeg" alt="" />
                                     </div>
                                     <div class="property-box__right">
                                         <div class="property-box__title h3">
-                                            <a href="#">Golden Retriever</a>
+                                            <a href="#">Labrador</a>
                                         </div>
                                         <div class="property-box__amenities">
                                             <span>En Adopción</span><br/>
-                                            <span>5 años</span>
+                                            <span>4 años</span>
                                         </div>
                                         <div class="property-box__post-price">
                                             <div class="property-box__post-by">
-                                                Subido por: <a href="#">Jaime</a>
+                                                Subido por: <a href="#">Jorge</a>
                                             </div>
                                             <div class="property-box__price">
                                                 <span class="badge">Me Interesa</span>
@@ -320,19 +320,19 @@ function Home() {
                             <li class="col-md-6">
                                 <div class="property-box">
                                     <div class="property-box__left">
-                                        <img src="assets/images/golden.jpeg" alt="" />
+                                        <img src="assets/images/caballo.jpeg" alt="" />
                                     </div>
                                     <div class="property-box__right">
                                         <div class="property-box__title h3">
-                                            <a href="#">Golden Retriever</a>
+                                            <a href="#">Caballo Pura Raza</a>
                                         </div>
                                         <div class="property-box__amenities">
-                                            <span>En Adopción</span><br/>
-                                            <span>5 años</span>
+                                            <span>En Apareamiento</span><br/>
+                                            <span>14 años</span>
                                         </div>
                                         <div class="property-box__post-price">
                                             <div class="property-box__post-by">
-                                                Subido por: <a href="#">Jaime</a>
+                                                Subido por: <a href="#">Capo</a>
                                             </div>
                                             <div class="property-box__price">
                                                 <span class="badge">Me Interesa</span>
