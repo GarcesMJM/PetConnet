@@ -252,12 +252,12 @@ function Home() {
                                     </div>
                                     <div class="property-box__right">
                                         <div class="property-box__title h3">
-                                            <a href="#">Border</a>
+                                            <a href="#">Golden Retriever</a>
                                         </div>
                                         <div class="property-box__amenities">
-                                            <span>10 Bedroom</span>
-                                            <span>150 M</span>
-                                            <span>2 Garage</span>
+                                            <span>En Adopción</span>
+                                            <span>5 años</span>
+                                            <span></span>
                                         </div>
                                         <div class="property-box__post-price">
                                             <div class="property-box__post-by">
