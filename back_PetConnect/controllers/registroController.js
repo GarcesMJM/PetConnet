@@ -23,6 +23,7 @@ async function registro(req, res) {
       usuario: username,
     });
 
+
     res.status(201).send({ message: 'Usuario registrado exitosamente' });
   } catch (error) {
     console.error(error);
