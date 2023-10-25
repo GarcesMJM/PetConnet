@@ -2,9 +2,12 @@ const admin = require('firebase-admin');
 const db = admin.firestore();
 const usersRef = db.collection('usuarios');
 
+
 async function registro(req, res) {
   try {
     const { email, password, username } = req.body;
+
+    await createUserWithEmailAndPassword(admin.auth, email, password);
 
     const usernameExists = await usersRef.where('usuario', '==', username).get();
 
