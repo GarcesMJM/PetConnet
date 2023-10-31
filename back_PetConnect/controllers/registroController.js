@@ -7,8 +7,6 @@ async function registro(req, res) {
   try {
     const { email, password, username } = req.body;
 
-    await createUserWithEmailAndPassword(admin.auth, email, password);
-
     const usernameExists = await usersRef.where('usuario', '==', username).get();
 
     if (!usernameExists.empty) {
