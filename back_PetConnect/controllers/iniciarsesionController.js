@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+const firebase = require('firebase/app');
+const firebaseAuth = require('firebase/auth');
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -12,8 +12,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebaseAuth.getAuth(app);
 
 async function iniciarsesion(req, res) {
   try {
