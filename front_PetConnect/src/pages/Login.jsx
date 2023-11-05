@@ -26,7 +26,6 @@ const Login = () => {
   };
 
   const sendDataToBackend = async (e) => {
-    if (action == "Registrarse") {
       try {
         const response = await fetch("http://localhost:5000/register", {
           method: "POST",
@@ -37,29 +36,34 @@ const Login = () => {
         });
 
         const data = await response.json();
+        console.log('Respuesta del servidor:', data.message);
+        window.alert(data.message);
 
         // Aquí puedes manejar la respuesta del backend si es necesario
       } catch (error) {
         console.error("Error al enviar datos al backend:", error);
       }
-    } else {
-      try {
-        const response = await fetch("http://localhost:5000/iniciarsesion", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        });
-
-        const data = await response.json();
-
-        // Aquí puedes manejar la respuesta del backend si es necesario
-      } catch (error) {
-        console.error("Error al enviar datos al backend:", error);
-      }
-    }
   };
+
+  const sendDataToBackend2 = async (e) => {
+    try {
+      const response = await fetch("http://localhost:5000/iniciarsesion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+  
+      const data = await response.json();
+      console.log('Respuesta del servidor:', data.message);
+      window.alert(data.message);
+  
+      // Aquí puedes manejar la respuesta del backend si es necesario
+    } catch (error) {
+      console.error("Error al enviar datos al backend:", error);
+    }
+};
 
   return (
     <div className="login-container">
@@ -126,7 +130,7 @@ const Login = () => {
                       onClick={
                         action === "Registrarse"
                           ? () => setAction("Iniciar Sesión")
-                          : sendDataToBackend
+                          : sendDataToBackend2
                       }
                     >
                       Iniciar Sesión
