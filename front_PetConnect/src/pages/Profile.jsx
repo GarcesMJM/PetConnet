@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/Profile.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Profile() {
+
+    const [usuario, setUsuario] = useState(null);
+
+    useEffect(() => {
+      const obtenerUsuario = async () => {
+        try {
+          const response = await fetch('http://localhost:5000/obtenerusuario', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: localStorage.getItem('token') }),
+          });
+  
+          const data = await response.json();
+  
+          setUsuario(prevUsuario => ({ ...prevUsuario, ...data }));
+        } catch (error) {
+          console.error('Error al obtener la información del usuario:', error.response.data);
+        }
+      };
+  
+      obtenerUsuario();
+    }, []);
+    
+    if (!usuario) {
+      return <div>Cargando...</div>;
+    }
+  
     return (
         <div className="maincontainer">
             <div class="container">
@@ -15,8 +44,8 @@ function Profile() {
 
                                     <div class="cover-body d-flex justify-content-between align-items-center">
                                         <div>
-                                            <img class="profile-pic" src="https://therichpost.com/wp-content/uploads/2021/03/avatar6.png" alt="profile" />
-                                            <span class="profile-name">Jassa Jas</span>
+                                            <img class="profile-pic" src={usuario.foto_perfil} alt="profile" />
+                                            <span class="profile-name">{usuario.usuario}</span>
                                         </div>
                                         <div class="d-none d-md-block">
                                             <button class="btn btn-primary btn-icon-text btn-edit-profile">
