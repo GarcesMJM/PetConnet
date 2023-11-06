@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 const firebase = require('firebase/app');
 const firebaseAuth = require('firebase/auth');
+const { sign } = require("jsonwebtoken");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -22,9 +23,12 @@ async function Login(req, res) {
     const { email, password } = req.body;
 
     // Inicia sesión con correo electrónico y contraseña
-    await firebaseAuth.signInWithEmailAndPassword(auth, email, password);
+    const userCredential = await firebaseAuth.signInWithEmailAndPassword(auth, email, password);
 
-    return res.status(200).send({message: 'Sesión iniciada'});
+    // Obtiene el token de ID
+    const idToken = await userCredential.user.getIdToken();
+
+    return res.status(200).send({message: 'Sesión iniciada', token: idToken});
   } catch (error) {
     console.log('Error al iniciar sesión:', error);
     return res.status(500).send({message: 'Error al iniciar sesión'});

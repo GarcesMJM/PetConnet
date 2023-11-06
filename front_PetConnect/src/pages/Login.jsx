@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import imagen from "../Assets/cat-2934720_1280.jpg";
 
 import user_icon from "../Assets/person.png";
 import email_icon from "../Assets/email.png";
 import password_icon from "../Assets/password.png";
-//import { data } from "jquery";
+
+
 
 const Login = () => {
   const [username, setUsername] = useState(""); // Estado para el nombre de usuario
@@ -25,6 +27,8 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
+  const navigate = useNavigate();
+
   const sendDataToBackend = async (e) => {
       try {
         const response = await fetch("http://localhost:5000/register", {
@@ -39,13 +43,12 @@ const Login = () => {
         console.log('Respuesta del servidor:', data.message);
         window.alert(data.message);
 
-        // Aquí puedes manejar la respuesta del backend si es necesario
       } catch (error) {
         console.error("Error al enviar datos al backend:", error);
       }
   };
 
-  const sendDataToBackend2 = async (e) => {
+  const sendDataToBackend2 = async (e, history) => {
     try {
       const response = await fetch("http://localhost:5000/iniciarsesion", {
         method: "POST",
@@ -58,12 +61,14 @@ const Login = () => {
       const data = await response.json();
       console.log('Respuesta del servidor:', data.message);
       window.alert(data.message);
-  
-      // Aquí puedes manejar la respuesta del backend si es necesario
+      // Almacena el token en el Local Storage
+      localStorage.setItem('token', data.token);
+      navigate('/prueba', { replace: true });
+
     } catch (error) {
       console.error("Error al enviar datos al backend:", error);
     }
-};
+  };
 
   return (
     <div className="login-container">
