@@ -14,8 +14,18 @@ async function obtenerUsuario(req, res) {
       console.log('No se encontró al usuario');
       return res.status(404).send({message: 'No se encontró al usuario'});
     } else {
-      console.log('Información del usuario:', doc.data());
-      return res.status(200).send(doc.data());
+      const usuario = doc.data();
+
+      // Obtiene la información de las mascotas del usuario
+      const mascotasPromesas = usuario.mascotas.map(ref => ref.get());
+      const mascotasDocs = await Promise.all(mascotasPromesas);
+      const mascotas = mascotasDocs.map(doc => doc.data());
+
+      // Añade la información de las mascotas al usuario
+      usuario.mascotas = mascotas;
+
+      console.log('Información del usuario:', usuario);
+      return res.status(200).send(usuario);
     }
   } catch (error) {
     console.log('Error al obtener la información del usuario:', error);
