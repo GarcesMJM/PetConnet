@@ -15,7 +15,7 @@ function App() {
       <Route path="profile" element={<Profile />} />
       <Route path="posts" element={<Posts />} />
       <Route path="login" element={<Login />} />
-      <Route path="mascota" element={<Mascota />} />
+      <Route path="mascota/:id" element={<Mascota />} />
       <Route path="prueba" element={<Prueba />} />
     </Routes>
   );

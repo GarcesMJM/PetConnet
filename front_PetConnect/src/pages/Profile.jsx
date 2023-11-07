@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import '../css/Profile.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -148,7 +149,9 @@ function Profile() {
                                                 <p>{mascota.descripcion}</p>
                                                 <div class="row no-gutters mt-1">
                                                 <div class="col-6">
+                                                <Link to={`/mascota/${mascota.id}`}>
                                                     <img src={mascota.imagen} class="img-fluid pr-1" alt="Unsplash" />
+                                                </Link>
                                                 </div>
                                                 </div>
                                                 <small class="text-muted">Today 7:21 pm</small>

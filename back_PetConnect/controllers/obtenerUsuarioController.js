@@ -19,7 +19,11 @@ async function obtenerUsuario(req, res) {
       // Obtiene la información de las mascotas del usuario
       const mascotasPromesas = usuario.mascotas.map(ref => ref.get());
       const mascotasDocs = await Promise.all(mascotasPromesas);
-      const mascotas = mascotasDocs.map(doc => doc.data());
+      const mascotas = mascotasDocs.map(doc => {
+        let mascota = doc.data();
+        mascota.id = doc.id;  // Aquí agregas el ID del documento a los datos de la mascota
+        return mascota;
+      });
 
       // Añade la información de las mascotas al usuario
       usuario.mascotas = mascotas;
