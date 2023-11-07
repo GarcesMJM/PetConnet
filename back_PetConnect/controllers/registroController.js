@@ -25,10 +25,10 @@ async function registro(req, res) {
     });
 
 
-    res.status(201).send({ message: 'Usuario registrado exitosamente' });
+    res.status(201).send({ message: true });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ message: 'Error al registrar el usuario' });
+    res.status(500).send({ message: false });
   }
 }
 
