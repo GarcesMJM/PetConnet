@@ -69,7 +69,7 @@ const Login = () => {
       window.alert(data.message);
       // Almacena el token en el Local Storage
       localStorage.setItem("token", data.token);
-      navigate("/profile", { replace: true });
+      navigate(`/profile/${data.usuario}`, { replace: true });
     } catch (error) {
       console.error("Error al enviar datos al backend:", error);
     }
