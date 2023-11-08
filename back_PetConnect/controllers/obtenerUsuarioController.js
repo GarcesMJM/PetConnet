@@ -37,4 +37,42 @@ async function obtenerUsuario(req, res) {
   }
 }
 
-module.exports = obtenerUsuario;
+async function obtenerUsuarioPorNombre(req, res) {
+  try {
+    const { id } = req.body;
+
+    // Usa el nombre del usuario para obtener su información de Firestore
+    const snapshot = await admin.firestore().collection('usuarios').where('usuario', '==', id).get();
+
+    if (snapshot.empty) {
+      console.log('No se encontró al usuario');
+      return res.status(404).send({message: 'No se encontró al usuario'});
+    } else {
+      const doc = snapshot.docs[0];
+      const usuario = doc.data();
+
+      // Obtiene la información de las mascotas del usuario
+      const mascotasPromesas = usuario.mascotas.map(ref => ref.get());
+      const mascotasDocs = await Promise.all(mascotasPromesas);
+      const mascotas = mascotasDocs.map(doc => {
+        let mascota = doc.data();
+        mascota.id = doc.id;  // Aquí agregas el ID del documento a los datos de la mascota
+        return mascota;
+      });
+
+      // Añade la información de las mascotas al usuario
+      usuario.mascotas = mascotas;
+
+      console.log('Información del usuario:', usuario);
+      return res.status(200).send(usuario);
+    }
+  } catch (error) {
+    console.log('Error al obtener la información del usuario:', error);
+    return res.status(500).send({message: 'Error al obtener la información del usuario'});
+  }
+}
+
+module.exports = {
+  obtenerUsuario,
+  obtenerUsuarioPorNombre,
+}

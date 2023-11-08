@@ -10,7 +10,9 @@ router.post('/register', registroController);
 
 router.post('/iniciarsesion', iniciarsesionController);
 
-router.post('/obtenerusuario', obtenerUsuarioController);
+router.post('/obtenerusuario', obtenerUsuarioController.obtenerUsuario);
+
+router.post('/usuariopornombre', obtenerUsuarioController.obtenerUsuarioPorNombre);
 
 router.post('/obtenermascota', obtenerMascotaController);
 
