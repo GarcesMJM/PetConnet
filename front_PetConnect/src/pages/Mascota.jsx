@@ -28,7 +28,8 @@ const storage = getStorage(app);
 function Mascota() {
   const { id } = useParams();
   const [mascota, setMascota] = useState(null);
-
+  const [usuario, setUsuario] = useState(null);
+  const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
 
   //OBTENER MASCOTA////////////////////////////////////////////////////////////////////
   const obtenerMascota = async () => {
@@ -40,22 +41,77 @@ function Mascota() {
         },
         body: JSON.stringify({ id }),
       });
-
+  
       const data = await response.json();
-      console.log(Mascota);
-
+  
       setMascota((prevMascota) => ({ ...prevMascota, ...data }));
+  
+      // Llama a obtenerUsuario aquí, después de que se haya establecido el estado de mascota
+      obtenerUsuario(data.usuario);
     } catch (error) {
       console.error(
         "Error al obtener la información de la mascota:",
         error.response.data
       );
     }
-    };
+  };
+  
+  const obtenerUsuario = async (usuario2) => {
+    try {
+      const response = await fetch("http://localhost:5000/usuariopornombre", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: usuario2 }),
+      });
+  
+      const data = await response.json();
+
+  
+      setUsuario((prevUsuario) => ({ ...prevUsuario, ...data }));
+    } catch (error) {
+      console.error(
+        "Error al obtener la información del usuario:",
+        error.response.data
+      );
+    }
+  };
+  
   useEffect(() => {
     obtenerMascota();
   }, []);
-  /////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////
+
+  //OBTENER USUARIO AUTENTICADO/////////////////////////////////////////////////////
+  useEffect(() => {
+    const obtenerUsuarioAutenticado = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/obtenerusuario", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: localStorage.getItem("token") }),
+        });
+
+        const data = await response.json();
+
+        setUsuarioAutenticado((prevUsuarioAutenticado) => ({
+          ...prevUsuarioAutenticado,
+          ...data,
+        }));
+      } catch (error) {
+        console.error(
+          "Error al obtener la información del usuario autenticado:",
+          error.response.data
+        );
+      }
+    };
+    obtenerUsuarioAutenticado();
+  }, []);
+  ///////////////////////////////////////////////////////////////////////////////////////
+
 
   //AGREGAR NUEVA PUBLICACION/////////////////////////////////////////////////////////////
   const [textoPublicacion, setTextoPublicacion] = useState("");
@@ -326,31 +382,37 @@ function Mascota() {
           <div class="col-12 col-lg-8 col-xl-6 order-1 order-lg-2">
             <div class="card">
               <div class="card-body h-100">
-                {/* Formulario de Publicaciones */}
-                <form onSubmit={handleSubmit}>
-                  <div class="form-group">
-                    <textarea
-                      class="form-control"
-                      rows="3"
-                      placeholder="Escribe tu publicación"
-                      value={textoPublicacion}
-                      onChange={handleTextoChange}
-                    />
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="file"
-                      class="form-control-file"
-                      accept="image/*"
-                      onChange={handleImagenChange}
-                    />
-                  </div>
-                  <button type="submit" class="btn btn-primary">
-                    Publicar
-                  </button>
-                </form>
 
-                <hr />
+                {/* Formulario de Publicaciones */}
+                {usuarioAutenticado &&
+                usuarioAutenticado.usuario === usuario.usuario && (
+                  <>
+                  <form onSubmit={handleSubmit}>
+                    <div class="form-group">
+                      <textarea
+                        class="form-control"
+                        rows="3"
+                        placeholder="Escribe tu publicación"
+                        value={textoPublicacion}
+                        onChange={handleTextoChange}
+                      />
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="file"
+                        class="form-control-file"
+                        accept="image/*"
+                        onChange={handleImagenChange}
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Publicar
+                    </button>
+                  </form>
+                  <hr />
+                </>
+                )}
+                {/*////////*/}
 
                 {/*Publicaciones*/}
                 {mascota.publicaciones.map((publicacion) => (
