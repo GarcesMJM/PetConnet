@@ -1,11 +1,12 @@
 const { storage } = require("../firebase/config");
 const { ref, uploadBytes } = require("firebase/storage");
 
-function uploadImage(file) {
+async function uploadImage(req, res) {
+    console.log(req.body);
     const storageRef = ref(storage);
-    uploadBytes(storageRef, file).then(snapshot => {
-        console.log(snapshot);
-    })
+    // uploadBytes(storageRef, file).then(snapshot => {
+    //     console.log(snapshot);
+    // })
 }
 
 module.exports = uploadImage;

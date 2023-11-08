@@ -3,26 +3,27 @@ import Feed from "./Feed";
 
 export default function Maincontent() {
 
-  const sendDataToBackend = async (e) => {
-    try {
-      const file = e.target.files[0];
-      const formData = new FormData();
-      formData.append('file', file);
-      const response = await fetch('http://localhost:5000/subirimagen', {
-        method: 'POST',
-        body: formData,
-      });
+  const createReqBody = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    console.log(file);
+    const formData = new FormData();
+    formData.append('file', file);
+    console.log("Form = " + formData);
+    await sendDataToBackend(formData);
+  }
 
-      const data = await response.json();
-
-      if (data.message === true) {
-        window.alert('Imagen subida exitosamente');
-      } else {
-        window.alert('Error al subir la imagen');
-      }
-    } catch (error) {
-      console.error('Error al enviar datos al backend:', error);
-    }
+  const sendDataToBackend = async (formData) => {
+    console.log(formData);
+    fetch('http://localhost:8080/subirimagen', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(err => console.log(`Hubo un error: ${err}`))
   };
   
   return (
@@ -67,11 +68,11 @@ export default function Maincontent() {
                   <div class="row align-items-end">
                     <div class="col-md-10">
                       <div class="row">
-                        <input type="file" onChange={e => sendDataToBackend(e)} />
+                        <input type="file" onChange={e => createReqBody(e)}/>
                       </div>
                     </div>
                     <div class="col-md-2 d-md-flex">
-                      <button class="btn btn-primary btn-icon ms-auto">
+                      <button type="submit" class="btn btn-primary btn-icon ms-auto">
                         POST
                       </button>
                     </div>
@@ -84,7 +85,7 @@ export default function Maincontent() {
                     <div class="col-md-10">
                       <div class="row">
                         <div class="col-md-6 col-lg-4">
-                          <input type="file" onChange={e => sendDataToBackend(e)} />
+                          <input type="file"/>
                         </div>
                       </div>
                     </div>
