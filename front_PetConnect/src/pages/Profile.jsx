@@ -28,9 +28,11 @@ const storage = getStorage(app);
 function Profile() {
   const { id } = useParams();
   const [usuario, setUsuario] = useState(null);
+  const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
   const [post, setPost] = useState(false);
   const [petName, setPetName] = useState("");
 
+  //OBTENER USUARIO DUEÑO DEL PERFIL/////////////////////////////////////////////////
   const obtenerUsuario = async () => {
     try {
       const response = await fetch("http://localhost:5000/obtenerusuario", {
@@ -51,10 +53,33 @@ function Profile() {
       );
     }
   };
-
   useEffect(() => {
     obtenerUsuario();
   }, []);
+  //////////////////////////////////////////////////////////////////////////////////
+
+  //OBTENER USUARIO AUTENTICADO/////////////////////////////////////////////////////
+  useEffect(() => {
+    const obtenerUsuarioAutenticado = async () => {
+        try {
+        const response = await fetch('http://localhost:5000/obtenerusuario', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: localStorage.getItem('token') }),
+        });
+
+        const data = await response.json();
+
+        setUsuarioAutenticado(prevUsuarioAutenticado => ({ ...prevUsuarioAutenticado, ...data }));
+        } catch (error) {
+        console.error('Error al obtener la información del usuario autenticado:', error.response.data);
+        }
+    };
+    obtenerUsuarioAutenticado();
+  }, []);
+  ///////////////////////////////////////////////////////////////////////////////////////
 
   const handleImage = async (e) => {
     const archivoI = e.target.files[0];
@@ -83,6 +108,60 @@ function Profile() {
       );
     }
   };
+
+  //AGREGAR NUEVA MASCOTA///////////////////////////////////////////////////////////
+  const [mostrarPanel, setMostrarPanel] = useState(false);
+  const [nombreMascota, setNombreMascota] = useState('');
+  const [imagenMascota, setImagenMascota] = useState(null);
+
+  const handleNombreChange = (e) => {
+  setNombreMascota(e.target.value);
+  };
+
+  const handleImagenChange = (e) => {
+  setImagenMascota(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const ArchivoI = imagenMascota;
+      const refArchivo = ref(storage, `Fotos mascotas/${ArchivoI.name}`);
+      await uploadBytes(refArchivo, ArchivoI);
+      const urlImDesc = await getDownloadURL(refArchivo);
+
+      const urlImagen=urlImDesc;
+      const nombreUsuario= usuario.usuario;
+      console.log(nombreMascota);
+      console.log(urlImagen);
+      console.log(nombreUsuario);
+      try {
+        const response = await fetch('http://localhost:5000/agregarmascota', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({nombreMascota, urlImagen, nombreUsuario}),
+        });
+    
+        const data = await response.json();
+    
+        obtenerUsuario();
+        // Añade la nueva mascota al estado de las mascotas
+        setUsuario(prevUsuario => ({
+          ...prevUsuario,
+          mascotas: [...prevUsuario.mascotas, data],
+        }));
+    
+        // Limpia los campos del formulario
+        setNombreMascota('');
+        setImagenMascota(null);
+        setMostrarPanel(false);
+      } catch (error) {
+        console.error('Error al agregar la mascota:', error);
+      }
+    };
+  //////////////////////////////////////////////////////////////////////////////////
 
   const handlePostChange = async (e) => {
     setPost(true);
@@ -178,8 +257,25 @@ function Profile() {
               </div>
             </div>
 
-            <hr class="my-2" />
-            <div class="text-muted mb-2">Editar perfil</div>
+            {/*Solo para el dueño del perfil*/}
+            {usuarioAutenticado && usuarioAutenticado.usuario === usuario.usuario && (
+            <>
+                <hr class="my-2" />
+                <div class="text-muted mb-2">Editar perfil</div>
+                <hr class="my-2" />
+                <div class="text-muted mb-2" onClick={() => setMostrarPanel(true)}>Agregar mascota</div>
+                {mostrarPanel && (
+                <div>
+                    <form onSubmit={handleSubmit}>
+                    <input type="file" onChange={handleImagenChange} />
+                    <input type="text" value={nombreMascota} onChange={handleNombreChange} placeholder="Nombre de la mascota" />
+                    <button type="submit">Guardar</button>
+                    </form>
+                </div>
+                )}
+            </>
+            )}
+            {/*////////*/}
 
             <div class="card mb-3">
               <div class="card-header">
@@ -353,34 +449,6 @@ function Profile() {
             <div class="card">
               <div class="card-body h-100">
                 <div>
-                  {post ? (
-                    <div className="col">
-                      <label>Ingresa el nombre de la mascota</label>
-                      <input
-                        type="text"
-                        className="petName"
-                        id="petName"
-                        onChange={handlePetNameChange}
-                      />
-                      <label htmlFor="Selecciona una imagen para tu mascota"></label>
-                      <input
-                        type="file"
-                        className="petPhoto"
-                        id="file"
-                        onChange={submitPost}
-                      />
-                      <button className="btn-publicar">Publicar</button>
-                    </div>
-                  ) : (
-                    <div>
-                      <button
-                        className="btn-publicar"
-                        onClick={handlePostChange}
-                      >
-                        Publicar
-                      </button>
-                    </div>
-                  )}
                 </div>
 
                 {/*Publicaciones*/}
