@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import "../css/home.css";
 
 function Home() {
   return (
@@ -8,9 +9,7 @@ function Home() {
         <header>
           <div class="container">
             <div class="logo">
-              <a href="#">
-                <h1>PetConnect</h1>
-              </a>
+            <Link to="/" type="button" class="petconnect"><h1>PetConnect</h1></Link>
             </div>
 
             <button class="menu-toggle">
@@ -37,18 +36,18 @@ function Home() {
           <div class="banner-box">
             <div class="banner-box__img">
               <img
-                src="assets/images/banner-image.png"
+                src="assets/images/banner.jpeg"
                 width="1300"
                 height="634"
                 alt=""
               />
             </div>
 
-            <div class="banner-box__content">
+            <div class="banner-box__content" >
               <h1 class="banner-box__title h1">
                 La mejor forma de adoptar una mascota
               </h1>
-              <div class="banner-box__txt text-ex-large">
+              <div class="banner-box__txt text-ex-large" id="textobanner">
                 PetConnect® es todo lo que necesitas para adoptar una mascota o
                 ponerla en adopción.
               </div>
@@ -345,174 +344,6 @@ function Home() {
             </ul>
           </div>
         </div>
-      </div>
-
-      <div class="banner-wrap">
-        <div class="container">
-          <div class="banner-box">
-            <div class="banner-box__img">
-              <img
-                src="assets/images/banner-image-2.jpg"
-                width="1300"
-                height="482"
-                alt=""
-              />
-            </div>
-
-            <div class="banner-box__content">
-              <h1 class="banner-box__title h1">
-                Encuentra los mejores productos para tus mascotas
-              </h1>
-              <div class="banner-box__txt text-ex-large">
-                Ofrecemos una amplia variedad de productos y accesorios para el
-                cuidado y bienestar de tus mascotas.
-              </div>
-              <div class="banner-box__cta">
-                <a href="#" class="btn btn-primary">
-                  Contáctanos
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-wrap">
-        <footer>
-          <div class="container">
-            <div class="row justify-content-between">
-              <div class="col-lg-4 col-md-8">
-                <div class="f-info">
-                  <div class="f-logo pb-3">
-                    <img src="assets/images/logo.svg" alt="" />
-                  </div>
-                  <p class="text-small pb-3">
-                    Ofrecemos productos de alta calidad para el cuidado de tus
-                    mascotas. ¡Descubre nuestra amplia selección!
-                  </p>
-                  <div class="d-none d-lg-block">
-                    <div class="social-list pb-3">
-                      <ul>
-                        <li>
-                          <a href="#" class="facebook" target="_blank">
-                            <i class="ri-facebook-circle-fill"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" class="twitter" target="_blank">
-                            <i class="ri-twitter-fill"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" class="instagram" target="_blank">
-                            <i class="ri-instagram-fill"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" class="linkedin" target="_blank">
-                            <i class="ri-linkedin-box-fill"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <p class="text-small">
-                      © 2023 . Todos los derechos reservados.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-7 col-md-12">
-                <div class="row">
-                  <div class="col-md-3 col-sm-6 col-6 pb-4 pb-md-0">
-                    <h5 class="h4 pb-3">Explora</h5>
-                    <div class="quick-links">
-                      <ul>
-                        <li>
-                          <a href="#">Perfil</a>
-                        </li>
-                        <li>
-                          <a href="#">Post</a>
-                        </li>
-                        <li>
-                          <a href="#">Mascotas</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-4 col-sm-6 col-6 pb-4 pb-md-0">
-                    <h5 class="h4 pb-3">Our Company</h5>
-                    <div class="quick-links">
-                      <ul>
-                        <li>
-                          <a href="#">Acerca de Nosotros</a>
-                        </li>
-                        <li>
-                          <a href="#">Blog</a>
-                        </li>
-                        <li>
-                          <a href="#">Servicios</a>
-                        </li>
-                        <li>
-                          <a href="#">Contáctanos</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <h5 class="h4 pb-3">Suscríbete</h5>
-                    <div class="subscribe-form-wrap">
-                      <p class="text-small">
-                        Suscríbete para recibir las últimas noticias y ofertas
-                        de nuestra tienda.
-                      </p>
-                      <form class="subscribe-form form-wrap">
-                        <div class="form-group">
-                          <input
-                            type="email"
-                            class="form-control"
-                            placeholder="Correo electrónico"
-                          />
-                          <div class="cta">
-                            <button class="btn btn-primary btn-icon btn-sm btn-rounded">
-                              <i class="ri-arrow-right-line"></i>
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="d-lg-none pt-4">
-              <div class="social-list pb-3">
-                <ul>
-                  <li>
-                    <a href="#" class="facebook" target="_blank">
-                      <i class="ri-facebook-circle-fill"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="twitter" target="_blank">
-                      <i class="ri-twitter-fill"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="instagram" target="_blank">
-                      <i class="ri-instagram-fill"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="linkedin" target="_blank">
-                      <i class="ri-linkedin-box-fill"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <p class="text-small">© 2023 . Todos los derechos reservados.</p>
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   );
