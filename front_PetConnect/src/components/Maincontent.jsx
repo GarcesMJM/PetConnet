@@ -2,116 +2,99 @@ import React from "react";
 import Feed from "./Feed";
 
 export default function Maincontent() {
+
+  const sendDataToBackend = async (e) => {
+    try {
+      const file = e.target.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      const response = await fetch('http://localhost:5000/subirimagen', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.message === true) {
+        window.alert('Imagen subida exitosamente');
+      } else {
+        window.alert('Error al subir la imagen');
+      }
+    } catch (error) {
+      console.error('Error al enviar datos al backend:', error);
+    }
+  };
+  
   return (
     <>
       <div className="col-md-6 gedf-main">
         <div className="card gedf-card">
-          <div className="card-header">
-            <ul
-              className="nav nav-tabs card-header-tabs"
-              id="myTab"
-              role="tablist"
-            >
-              <li className="nav-item">
-                <a
-                  className="nav-link active"
-                  id="posts-tab"
-                  data-toggle="tab"
-                  href="#posts"
+          <div class="banner-tab-wrap">
+            <ul class="nav" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="tab-item active"
+                  data-bs-toggle="pill"
+                  data-bs-target="#rent"
+                  type="button"
                   role="tab"
-                  aria-controls="posts"
                   aria-selected="true"
                 >
-                  Make a publication
-                </a>
+                  Adopción
+                </button>
               </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  id="images-tab"
-                  data-toggle="tab"
+              <li class="nav-item" role="presentation">
+                <button
+                  class="tab-item"
+                  data-bs-toggle="pill"
+                  data-bs-target="#buy"
+                  type="button"
                   role="tab"
-                  aria-controls="images"
                   aria-selected="false"
-                  href="#images"
                 >
-                  Images
-                </a>
+                  Pérdida
+                </button>
               </li>
             </ul>
-          </div>
-          <div className="card-body">
-            <div className="tab-content" id="myTabContent">
+
+            <div class="tab-content" id="pills-tabContent">
               <div
-                className="tab-pane fade show active"
-                id="posts"
+                class="tab-pane fade show active"
+                id="rent"
                 role="tabpanel"
-                aria-labelledby="posts-tab"
               >
-                <div className="form-group">
-                  <label className="sr-only" for="message">
-                    post
-                  </label>
-                  <textarea
-                    className="form-control"
-                    id="message"
-                    rows="3"
-                    placeholder="What are you thinking?"
-                  ></textarea>
-                </div>
-              </div>
-              <div
-                className="tab-pane fade"
-                id="images"
-                role="tabpanel"
-                aria-labelledby="images-tab"
-              >
-                <div className="form-group">
-                  <div className="custom-file">
-                    <input
-                      type="file"
-                      className="custom-file-input"
-                      id="customFile"
-                    />
-                    <label className="custom-file-label" for="customFile">
-                      Upload image
-                    </label>
+                <form class="form-wrap">
+                  <div class="row align-items-end">
+                    <div class="col-md-10">
+                      <div class="row">
+                        <input type="file" onChange={e => sendDataToBackend(e)} />
+                      </div>
+                    </div>
+                    <div class="col-md-2 d-md-flex">
+                      <button class="btn btn-primary btn-icon ms-auto">
+                        POST
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div className="py-4"></div>
+                </form>
               </div>
-            </div>
-            <div className="btn-toolbar justify-content-between">
-              <div className="btn-group">
-                <button type="submit" className="btn btn-primary">
-                  share
-                </button>
-              </div>
-              <div className="btn-group">
-                <button
-                  id="btnGroupDrop1"
-                  type="button"
-                  className="btn btn-link dropdown-toggle"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i className="fa fa-globe"></i>
-                </button>
-                <div
-                  className="dropdown-menu dropdown-menu-right"
-                  aria-labelledby="btnGroupDrop1"
-                >
-                  <a className="dropdown-item" href="#">
-                    <i className="fa fa-globe"></i> Public
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa fa-users"></i> Friends
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa fa-user"></i> Just me
-                  </a>
-                </div>
+              <div class="tab-pane fade" id="buy" role="tabpanel">
+                <form class="form-wrap">
+                  <div class="row align-items-end">
+                    <div class="col-md-10">
+                      <div class="row">
+                        <div class="col-md-6 col-lg-4">
+                          <input type="file" onChange={e => sendDataToBackend(e)} />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 d-md-flex">
+                      <button class="btn btn-primary btn-icon ms-auto">
+                        <i class="ri-search-2-line"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

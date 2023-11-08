@@ -1,7 +1,7 @@
 const express = require('express');
 const admin = require('firebase-admin');
-const cors = require('cors'); 
-const serviceAccount = require('C:\\Users\\Usuario\\Downloads\\clave.json');
+const cors = require('cors');
+const serviceAccount = require('/Users/sebastianrueda/Downloads/key.json');
 
 const app = express();
 
@@ -37,7 +37,7 @@ app.get('/usuarios', async (req, res) => {
 });
 
 // Escucha en el puerto 3000 o en el puerto especificado por el entorno
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
