@@ -1,6 +1,6 @@
 const admin = require('firebase-admin');
 
-async function obtenerUsuario(req, res) {
+async function cambiarFotoPerfil(req, res) {
   try {
 
     const { foto_perfil, token } = req.body;
@@ -26,4 +26,4 @@ async function obtenerUsuario(req, res) {
   }
 }
 
-module.exports = obtenerUsuario;
+module.exports = cambiarFotoPerfil;

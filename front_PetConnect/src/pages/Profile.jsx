@@ -28,6 +28,8 @@ const storage = getStorage(app);
 function Profile() {
   const { id } = useParams();
   const [usuario, setUsuario] = useState(null);
+  const [post, setPost] = useState(false);
+  const [petName, setPetName] = useState("");
 
   const obtenerUsuario = async () => {
     try {
@@ -82,8 +84,51 @@ function Profile() {
     }
   };
 
+  const handlePostChange = async (e) => {
+    setPost(true);
+  };
+
+  const handlePetNameChange = async (e) => {
+    setPetName(e.target.value);
+  };
+
+  const submitPost = async (e) => {
+    const ArchivoI = e.target.files[0];
+    const refArchivo = ref(storage, `Fotos mascotas/${ArchivoI.name}`);
+    await uploadBytes(refArchivo, ArchivoI);
+    const urlImDesc = await getDownloadURL(refArchivo);
+
+    window.alert(urlImDesc + petName);
+
+    try {
+      const response = await fetch("http://localhost:5000/guardarmascota", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          foto_perfil: urlImDesc,
+          name: petName,
+          token: localStorage.getItem("token"),
+        }),
+      });
+
+      const data = await response.json();
+      window.alert(data.message);
+
+      obtenerUsuario();
+    } catch (error) {
+      console.error(
+        "Error al obtener la información del usuario:",
+        error.response.data
+      );
+    }
+
+    setPost(false);
+  };
+
   if (!usuario) {
-    return <div onChange={obtenerUsuario}>Cargando...</div>;
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -101,7 +146,6 @@ function Profile() {
                   height="128"
                 />
                 <h4 class="card-title mb-0">{usuario.usuario}</h4>
-                <div class="text-muted mb-2">Front-end Developer</div>
 
                 <div>
                   <input
@@ -308,6 +352,37 @@ function Profile() {
           <div class="col-12 col-lg-8 col-xl-6 order-1 order-lg-2">
             <div class="card">
               <div class="card-body h-100">
+                <div>
+                  {post ? (
+                    <div className="col">
+                      <label>Ingresa el nombre de la mascota</label>
+                      <input
+                        type="text"
+                        className="petName"
+                        id="petName"
+                        onChange={handlePetNameChange}
+                      />
+                      <label htmlFor="Selecciona una imagen para tu mascota"></label>
+                      <input
+                        type="file"
+                        className="petPhoto"
+                        id="file"
+                        onChange={submitPost}
+                      />
+                      <button className="btn-publicar">Publicar</button>
+                    </div>
+                  ) : (
+                    <div>
+                      <button
+                        className="btn-publicar"
+                        onClick={handlePostChange}
+                      >
+                        Publicar
+                      </button>
+                    </div>
+                  )}
+                </div>
+
                 {/*Publicaciones*/}
                 {usuario.mascotas.map((mascota) => (
                   <div class="media" key={mascota.id}>
