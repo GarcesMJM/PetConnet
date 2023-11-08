@@ -61,21 +61,27 @@ function Profile() {
   //OBTENER USUARIO AUTENTICADO/////////////////////////////////////////////////////
   useEffect(() => {
     const obtenerUsuarioAutenticado = async () => {
-        try {
-        const response = await fetch('http://localhost:5000/obtenerusuario', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ token: localStorage.getItem('token') }),
+      try {
+        const response = await fetch("http://localhost:5000/obtenerusuario", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: localStorage.getItem("token") }),
         });
 
         const data = await response.json();
 
-        setUsuarioAutenticado(prevUsuarioAutenticado => ({ ...prevUsuarioAutenticado, ...data }));
-        } catch (error) {
-        console.error('Error al obtener la información del usuario autenticado:', error.response.data);
-        }
+        setUsuarioAutenticado((prevUsuarioAutenticado) => ({
+          ...prevUsuarioAutenticado,
+          ...data,
+        }));
+      } catch (error) {
+        console.error(
+          "Error al obtener la información del usuario autenticado:",
+          error.response.data
+        );
+      }
     };
     obtenerUsuarioAutenticado();
   }, []);
@@ -111,56 +117,52 @@ function Profile() {
 
   //AGREGAR NUEVA MASCOTA///////////////////////////////////////////////////////////
   const [mostrarPanel, setMostrarPanel] = useState(false);
-  const [nombreMascota, setNombreMascota] = useState('');
+  const [nombreMascota, setNombreMascota] = useState("");
   const [imagenMascota, setImagenMascota] = useState(null);
 
   const handleNombreChange = (e) => {
-  setNombreMascota(e.target.value);
+    setNombreMascota(e.target.value);
   };
 
   const handleImagenChange = (e) => {
-  setImagenMascota(e.target.files[0]);
+    setImagenMascota(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
+    e.preventDefault();
 
-      const ArchivoI = imagenMascota;
-      const refArchivo = ref(storage, `Fotos mascotas/${ArchivoI.name}`);
-      await uploadBytes(refArchivo, ArchivoI);
-      const urlImDesc = await getDownloadURL(refArchivo);
+    const ArchivoI = imagenMascota;
+    const refArchivo = ref(storage, `Fotos mascotas/${ArchivoI.name}`);
+    await uploadBytes(refArchivo, ArchivoI);
+    const urlImDesc = await getDownloadURL(refArchivo);
 
-      const urlImagen=urlImDesc;
-      const nombreUsuario= usuario.usuario;
-      console.log(nombreMascota);
-      console.log(urlImagen);
-      console.log(nombreUsuario);
-      try {
-        const response = await fetch('http://localhost:5000/agregarmascota', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({nombreMascota, urlImagen, nombreUsuario}),
-        });
-    
-        const data = await response.json();
-    
-        obtenerUsuario();
-        // Añade la nueva mascota al estado de las mascotas
-        setUsuario(prevUsuario => ({
-          ...prevUsuario,
-          mascotas: [...prevUsuario.mascotas, data],
-        }));
-    
-        // Limpia los campos del formulario
-        setNombreMascota('');
-        setImagenMascota(null);
-        setMostrarPanel(false);
-      } catch (error) {
-        console.error('Error al agregar la mascota:', error);
-      }
-    };
+    const urlImagen = urlImDesc;
+    const nombreUsuario = usuario.usuario;
+    console.log(nombreMascota);
+    console.log(urlImagen);
+    console.log(nombreUsuario);
+    try {
+      const response = await fetch("http://localhost:5000/agregarmascota", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nombreMascota, urlImagen, nombreUsuario }),
+      });
+
+      const data = await response.json();
+
+      obtenerUsuario();
+      // Añade la nueva mascota al estado de las mascotas
+
+      // Limpia los campos del formulario
+      setNombreMascota("");
+      setImagenMascota(null);
+      setMostrarPanel(false);
+    } catch (error) {
+      console.error("Error al agregar la mascota:", error);
+    }
+  };
   //////////////////////////////////////////////////////////////////////////////////
 
   const handlePostChange = async (e) => {
@@ -169,41 +171,6 @@ function Profile() {
 
   const handlePetNameChange = async (e) => {
     setPetName(e.target.value);
-  };
-
-  const submitPost = async (e) => {
-    const ArchivoI = e.target.files[0];
-    const refArchivo = ref(storage, `Fotos mascotas/${ArchivoI.name}`);
-    await uploadBytes(refArchivo, ArchivoI);
-    const urlImDesc = await getDownloadURL(refArchivo);
-
-    window.alert(urlImDesc + petName);
-
-    try {
-      const response = await fetch("http://localhost:5000/guardarmascota", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          foto_perfil: urlImDesc,
-          name: petName,
-          token: localStorage.getItem("token"),
-        }),
-      });
-
-      const data = await response.json();
-      window.alert(data.message);
-
-      obtenerUsuario();
-    } catch (error) {
-      console.error(
-        "Error al obtener la información del usuario:",
-        error.response.data
-      );
-    }
-
-    setPost(false);
   };
 
   if (!usuario) {
@@ -258,23 +225,34 @@ function Profile() {
             </div>
 
             {/*Solo para el dueño del perfil*/}
-            {usuarioAutenticado && usuarioAutenticado.usuario === usuario.usuario && (
-            <>
-                <hr class="my-2" />
-                <div class="text-muted mb-2">Editar perfil</div>
-                <hr class="my-2" />
-                <div class="text-muted mb-2" onClick={() => setMostrarPanel(true)}>Agregar mascota</div>
-                {mostrarPanel && (
-                <div>
-                    <form onSubmit={handleSubmit}>
-                    <input type="file" onChange={handleImagenChange} />
-                    <input type="text" value={nombreMascota} onChange={handleNombreChange} placeholder="Nombre de la mascota" />
-                    <button type="submit">Guardar</button>
-                    </form>
-                </div>
-                )}
-            </>
-            )}
+            {usuarioAutenticado &&
+              usuarioAutenticado.usuario === usuario.usuario && (
+                <>
+                  <hr class="my-2" />
+                  <div class="text-muted mb-2">Editar perfil</div>
+                  <hr class="my-2" />
+                  <div
+                    class="text-muted mb-2"
+                    onClick={() => setMostrarPanel(true)}
+                  >
+                    Agregar mascota
+                  </div>
+                  {mostrarPanel && (
+                    <div>
+                      <form onSubmit={handleSubmit}>
+                        <input type="file" onChange={handleImagenChange} />
+                        <input
+                          type="text"
+                          value={nombreMascota}
+                          onChange={handleNombreChange}
+                          placeholder="Nombre de la mascota"
+                        />
+                        <button type="submit">Guardar</button>
+                      </form>
+                    </div>
+                  )}
+                </>
+              )}
             {/*////////*/}
 
             <div class="card mb-3">
@@ -448,8 +426,7 @@ function Profile() {
           <div class="col-12 col-lg-8 col-xl-6 order-1 order-lg-2">
             <div class="card">
               <div class="card-body h-100">
-                <div>
-                </div>
+                <div></div>
 
                 {/*Publicaciones*/}
                 {usuario.mascotas.map((mascota) => (
