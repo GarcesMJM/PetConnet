@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/ForgotPwd.css";
 
-import imagen from "../assets/cat-2934720_1280.jpg";
-import email_icon from "../assets/email.png";
+import imagen from "../Assets/cat-2934720_1280.jpg";
+import email_icon from "../Assets/email.png";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";

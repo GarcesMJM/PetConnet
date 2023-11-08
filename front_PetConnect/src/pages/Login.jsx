@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
-import imagen from "../assets/cat-2934720_1280.jpg";
+import imagen from "../Assets/cat-2934720_1280.jpg";
 
-import user_icon from "../assets/person.png";
-import email_icon from "../assets/email.png";
-import password_icon from "../assets/password.png";
+import user_icon from "../Assets/person.png";
+import email_icon from "../Assets/email.png";
+import password_icon from "../Assets/password.png";
 
 const Login = () => {
   const [username, setUsername] = useState(""); // Estado para el nombre de usuario
