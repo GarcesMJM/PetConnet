@@ -41,6 +41,7 @@ const Login = () => {
       const data = await response.json();
 
       if (data.message == true) {
+        window.alert("Usuario registrado exitosamente");
         setAction("Iniciar Sesión");
       } else {
         window.alert("Error al registrar el usuario");
@@ -67,9 +68,11 @@ const Login = () => {
       const data = await response.json();
       console.log("Respuesta del servidor:", data.message);
       window.alert(data.message);
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        navigate(`/profile/${data.usuario}`, { replace: true });
+      }
       // Almacena el token en el Local Storage
-      localStorage.setItem("token", data.token);
-      navigate(`/profile/${data.usuario}`, { replace: true });
     } catch (error) {
       console.error("Error al enviar datos al backend:", error);
     }

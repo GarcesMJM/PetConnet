@@ -6,13 +6,13 @@ const { sign } = require("jsonwebtoken");
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBHZ6XTuHPmIy1jnv0yHbLpXaiNqkPqQGY",
-  authDomain: "petconnect-67be4.firebaseapp.com",
-  projectId: "petconnect-67be4",
-  storageBucket: "petconnect-67be4.appspot.com",
-  messagingSenderId: "508382879611",
-  appId: "1:508382879611:web:d885779614c09bef5ce7de",
-  measurementId: "G-7W6QELPCB0"
+  apiKey: "AIzaSyDp11FAxsh_JtvCyzj8sf9OXbmBO4PGBt8",
+  authDomain: "petconnect2-4be50.firebaseapp.com",
+  projectId: "petconnect2-4be50",
+  storageBucket: "petconnect2-4be50.appspot.com",
+  messagingSenderId: "948988551923",
+  appId: "1:948988551923:web:afd3d0cff1d450ae278d86",
+  measurementId: "G-3JCCDR9K1G",
 };
 
 // Initialize Firebase
