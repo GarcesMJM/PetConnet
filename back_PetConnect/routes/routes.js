@@ -5,7 +5,6 @@ const iniciarsesionController = require('../controllers/iniciarsesionController'
 const obtenerUsuarioController = require('../controllers/obtenerUsuarioController');
 const cambiarFotoPerfilController = require('../controllers/cambiarFotoPerfilController');
 const obtenerMascotaController = require('../controllers/obtenerMascotaController');
-const guardarMascotaController = require('../controllers/guardarMascotaController');
 const agregarMascotaController = require('../controllers/agregarMascotaController');
 const agregarPublicacionController = require('../controllers/agregarPublicacionController');
 
@@ -16,7 +15,7 @@ router.post('/obtenerusuario', obtenerUsuarioController.obtenerUsuario);
 router.post('/usuariopornombre', obtenerUsuarioController.obtenerUsuarioPorNombre);
 router.post('/cambiarfoto', cambiarFotoPerfilController);
 router.post('/obtenermascota', obtenerMascotaController);
-router.post('/guardarmascota', guardarMascotaController);
+
 router.post('/agregarmascota', agregarMascotaController);
 router.post('/agregarpublicacion', agregarPublicacionController);
 

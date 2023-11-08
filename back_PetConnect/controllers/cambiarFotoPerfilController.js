@@ -3,21 +3,27 @@ const admin = require('firebase-admin');
 async function cambiarFotoPerfil(req, res) {
   try {
 
-    const { foto_perfil, token } = req.body;
+    const { foto_perfil, Name, Residencia, Origen, Phone, nombreUsuario, token } = req.body;
+    console.log(Name);
     
-    // Verifica el token
-    const decodedToken = await admin.auth().verifyIdToken(token);
+    const snapshot = await admin.firestore().collection('usuarios').where('usuario', '==', nombreUsuario).get();
 
-    // Usa el UID del usuario para obtener su información de Firestore
-    const doc = await admin.firestore().collection('usuarios').doc(decodedToken.uid).get();
-
-    if (!doc.exists) {
+    if (snapshot.empty) {
       console.log('No se encontró al usuario');
       return res.status(404).send({message: 'No se encontró al usuario'});
     } else {
-      console.log('Información del usuario:', doc.data());
-      admin.firestore().collection('usuarios').doc(decodedToken.uid).update({foto_perfil: foto_perfil});
-      return res.status(200).send({message: true});
+      const doc = snapshot.docs[0];
+
+      // Añade la referencia del documento de la mascota al array 'mascotas' del usuario
+      await doc.ref.update({
+        foto_perfil: foto_perfil, 
+        Nombre: Name,
+        Residencia: Residencia,
+        Origen: Origen, 
+        telefono:Phone
+      });
+
+      return res.status(200).send({message: 'Usuario editado con éxito'});
     }
 
   } catch (error) {

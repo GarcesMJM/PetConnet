@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import "../css/Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -29,8 +29,6 @@ function Profile() {
   const { id } = useParams();
   const [usuario, setUsuario] = useState(null);
   const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
-  const [post, setPost] = useState(false);
-  const [petName, setPetName] = useState("");
 
   //OBTENER USUARIO DUEÑO DEL PERFIL/////////////////////////////////////////////////
   const obtenerUsuario = async () => {
@@ -53,9 +51,11 @@ function Profile() {
       );
     }
   };
+
   useEffect(() => {
     obtenerUsuario();
   }, []);
+
   //////////////////////////////////////////////////////////////////////////////////
 
   //OBTENER USUARIO AUTENTICADO/////////////////////////////////////////////////////
@@ -87,11 +87,42 @@ function Profile() {
   }, []);
   ///////////////////////////////////////////////////////////////////////////////////////
 
+  //Se edita la información del usuario
+
+  const [edit, setEdit] = useState(false);
+  const [nameuser, setNameuser] = useState("");
+  const [lugarResidencia, setLugarResidencia] = useState("");
+  const [lugarOrigen, setLugarOrigen] = useState("");
+  const [phone, setPhone] = useState("");
+  const [profile, setProfile] = useState(null);
+
+  const handleNameChange = (e) => {
+    setNameuser(e.target.value);
+  };
+
+  const handleLugarChange = (e) => {
+    setLugarResidencia(e.target.value);
+  };
+
+  const handleOrigenChange = (e) => {
+    setLugarOrigen(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleProfileChange = (e) => {
+    setProfile(e.target.files[0]);
+  };
+
   const handleImage = async (e) => {
-    const archivoI = e.target.files[0];
+    e.preventDefault();
+    const archivoI = profile;
     const refArchivo = ref(storage, `Fotos usuarios/${archivoI.name}`);
     await uploadBytes(refArchivo, archivoI);
     const urlImDesc = await getDownloadURL(refArchivo);
+
     try {
       const response = await fetch("http://localhost:5000/cambiarfoto", {
         method: "POST",
@@ -100,13 +131,22 @@ function Profile() {
         },
         body: JSON.stringify({
           foto_perfil: urlImDesc,
+          Name: nameuser,
+          Residencia: lugarResidencia,
+          Origen: lugarOrigen,
+          Phone: phone,
+          nombreUsuario: usuario.usuario,
           token: localStorage.getItem("token"),
         }),
       });
 
       const data = await response.json();
 
+      window.alert(data.message);
+
       obtenerUsuario();
+
+      setEdit(false);
     } catch (error) {
       console.error(
         "Error al obtener la información del usuario:",
@@ -165,12 +205,9 @@ function Profile() {
   };
   //////////////////////////////////////////////////////////////////////////////////
 
-  const handlePostChange = async (e) => {
-    setPost(true);
-  };
-
-  const handlePetNameChange = async (e) => {
-    setPetName(e.target.value);
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.alert("Has cerrado la sesión");
   };
 
   if (!usuario) {
@@ -194,12 +231,6 @@ function Profile() {
                 <h4 class="card-title mb-0">{usuario.usuario}</h4>
 
                 <div>
-                  <input
-                    type="file"
-                    id="file"
-                    placeholder="Selecciona la imagen"
-                    onChange={handleImage}
-                  />
                   <a class="btn btn-primary btn-sm" href="#">
                     Follow
                   </a>
@@ -220,6 +251,13 @@ function Profile() {
                     </svg>{" "}
                     Message
                   </a>
+                  <a
+                    class="btn btn-primary btn-sm"
+                    href="/login"
+                    onClick={handleLogout}
+                  >
+                    Sign out
+                  </a>
                 </div>
               </div>
             </div>
@@ -229,7 +267,42 @@ function Profile() {
               usuarioAutenticado.usuario === usuario.usuario && (
                 <>
                   <hr class="my-2" />
-                  <div class="text-muted mb-2">Editar perfil</div>
+                  <div class="text-muted mb-2" onClick={() => setEdit(true)}>
+                    Editar perfil
+                  </div>
+                  {edit && (
+                    <div>
+                      <form onSubmit={handleImage}>
+                        <input
+                          type="text"
+                          value={nameuser}
+                          onChange={handleNameChange}
+                          placeholder="Nombre Completo"
+                        />
+                        <input
+                          type="text"
+                          value={lugarResidencia}
+                          onChange={handleLugarChange}
+                          placeholder="Lugar de Residencia"
+                        />
+                        <input
+                          type="text"
+                          value={lugarOrigen}
+                          onChange={handleOrigenChange}
+                          placeholder="Lugar de Origen"
+                        />
+                        <input
+                          type="text"
+                          value={phone}
+                          onChange={handlePhoneChange}
+                          placeholder="Teléfono"
+                        />
+                        <input type="file" onChange={handleProfileChange} />
+
+                        <button type="submit">Guardar</button>
+                      </form>
+                    </div>
+                  )}
                   <hr class="my-2" />
                   <div
                     class="text-muted mb-2"
@@ -240,13 +313,14 @@ function Profile() {
                   {mostrarPanel && (
                     <div>
                       <form onSubmit={handleSubmit}>
-                        <input type="file" onChange={handleImagenChange} />
                         <input
                           type="text"
                           value={nombreMascota}
                           onChange={handleNombreChange}
                           placeholder="Nombre de la mascota"
                         />
+                        <input type="file" onChange={handleImagenChange} />
+
                         <button type="submit">Guardar</button>
                       </form>
                     </div>
@@ -306,12 +380,31 @@ function Profile() {
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
+                      class="feather feather-name feather-sm mr-1"
+                    >
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>{" "}
+                    Nombre <a href="#">{usuario.Nombre}</a>
+                  </li>
+
+                  <li class="mb-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
                       class="feather feather-home feather-sm mr-1"
                     >
                       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                       <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>{" "}
-                    Lives in <a href="#">San Francisco, SA</a>
+                    Lives in <a href="#">{usuario.Residencia}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -336,7 +429,7 @@ function Profile() {
                       ></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>{" "}
-                    Works at <a href="#">GitHub</a>
+                    From <a href="#">{usuario.Origen}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -349,12 +442,12 @@ function Profile() {
                       stroke-width="2"
                       stroke-linecap="round"
                       stroke-linejoin="round"
-                      class="feather feather-map-pin feather-sm mr-1"
+                      class="feather feather-phone feather-sm mr-1"
                     >
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>{" "}
-                    From <a href="#">Boston</a>
+                    Teléfono <a>{usuario.telefono}</a>
                   </li>
                 </ul>
               </div>
