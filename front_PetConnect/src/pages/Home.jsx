@@ -67,30 +67,6 @@ function Home() {
                     Adopta
                   </button>
                 </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="tab-item"
-                    data-bs-toggle="pill"
-                    data-bs-target="#buy"
-                    type="button"
-                    role="tab"
-                    aria-selected="false"
-                  >
-                    Ofrece
-                  </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button
-                    class="tab-item"
-                    data-bs-toggle="pill"
-                    data-bs-target="#sell"
-                    type="button"
-                    role="tab"
-                    aria-selected="false"
-                  >
-                    Reporta
-                  </button>
-                </li>
               </ul>
 
               <div class="tab-content" id="pills-tabContent">
