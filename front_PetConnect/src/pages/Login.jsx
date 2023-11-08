@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import imagen from "../Assets/cat-2934720_1280.jpg";
 
@@ -163,7 +163,10 @@ const Login = () => {
                     <div></div>
                   ) : (
                     <div className="forgot-password">
-                      ¿Olvidaste tu contraseña? <span>Ingresa aquí</span>
+                      ¿Olvidaste tu contraseña?{" "}
+                      <span>
+                        <Link to="/olvidocontraseña">Ingresa aquí</Link>
+                      </span>
                     </div>
                   )}
                   <div className="submit-container">
@@ -191,6 +194,10 @@ const Login = () => {
                     >
                       Registrarse
                     </div>
+                  </div>
+
+                  <div className="back">
+                    <Link to="/">Regresar</Link>
                   </div>
                 </form>
               </div>
