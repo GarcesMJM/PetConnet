@@ -8,6 +8,7 @@ async function agregarMascota(req, res) {
     const docRef = await admin.firestore().collection('mascotas').add({
       nombre: nombreMascota,
       imagen: urlImagen,
+      publicaciones: []
     });
 
     // Obtiene el documento del usuario de la colección 'usuarios'

@@ -21,6 +21,8 @@ async function obtenerMascota(req, res) {
       // Añade la información de las publicaciones a la mascota
       mascota.publicaciones = publicaciones;
 
+      mascota.id = doc.id;
+
       console.log('Información de la mascota:', mascota);
       return res.status(200).send(mascota);
     }
