@@ -63,6 +63,20 @@ async function obtenerUsuarioPorNombre(req, res) {
       // Añade la información de las mascotas al usuario
       usuario.mascotas = mascotas;
 
+      // Obtiene la información de los seguidores del usuario
+      const seguidoresPromesas = usuario.seguidores.map(nombreSeguidor => 
+        admin.firestore().collection('usuarios').where('usuario', '==', nombreSeguidor).get()
+      );
+      const seguidoresDocs = await Promise.all(seguidoresPromesas);
+      const seguidores = seguidoresDocs.map(snapshot => {
+        if (!snapshot.empty) {
+          return snapshot.docs[0].data();
+        }
+      });
+
+      // Añade la información de los seguidores al usuario
+      usuario.seguidores = seguidores;
+
       console.log('Información del usuario:', usuario);
       return res.status(200).send(usuario);
     }
@@ -71,6 +85,7 @@ async function obtenerUsuarioPorNombre(req, res) {
     return res.status(500).send({message: 'Error al obtener la información del usuario'});
   }
 }
+
 
 module.exports = {
   obtenerUsuario,

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import "../css/Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from 'react-modal';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -31,6 +32,7 @@ function Profile() {
   const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
   const [post, setPost] = useState(false);
   const [petName, setPetName] = useState("");
+  const [mostrarSeguidores, setMostrarSeguidores] = useState(false);
 
   //OBTENER USUARIO DUEÑO DEL PERFIL/////////////////////////////////////////////////
   const obtenerUsuario = async () => {
@@ -44,6 +46,7 @@ function Profile() {
       });
 
       const data = await response.json();
+      console.log(data.seguidores);
 
     
       setUsuario((prevUsuario) => ({ ...prevUsuario, ...data }));
@@ -108,6 +111,10 @@ function Profile() {
         error.response.data
       );
     }
+  };
+
+  const handleClick = () => {
+    setMostrarSeguidores(!mostrarSeguidores);
   };
 
   //AGREGAR NUEVA MASCOTA///////////////////////////////////////////////////////////
@@ -419,32 +426,50 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-                <h5 class="card-title mb-0">Following</h5>
+                <h5 class="card-title mb-0">Conexiones</h5>
               </div>
               <div class="card-body">
-                <div class="media">
-                  <img
-                    src="https://therichpost.com/wp-content/uploads/2021/03/avatar3.png"
-                    width="56"
-                    height="56"
-                    class="rounded-circle mr-2"
-                    alt="Andrew Jones"
-                  />
-                  <div class="media-body">
-                    <p class="my-1">
-                      <strong>Andrew Jones</strong>
-                    </p>
-                    <a class="btn btn-sm btn-outline-primary" href="#">
-                      Unfollow
-                    </a>
-                  </div>
-                </div>
-
+              <div>
+                {/*Seguidores*/}
+                <p onClick={handleClick}>{usuario.seguidores.length} seguidores</p>
+                <Modal
+                  isOpen={mostrarSeguidores}
+                  onRequestClose={handleClick}
+                  contentLabel="Seguidores"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '20%', // Ajusta el ancho según tus preferencias
+                      height: '60%', // Ajusta la altura según tus preferencias
+                      margin: 'auto',
+                      borderRadius: '10px',
+                      padding: '20px',
+                      overflowY: 'auto' // Habilita la barra de desplazamiento vertical
+                    }
+                  }}
+                >
+                  <h2 style={{ textAlign: 'center' }}>Seguidores</h2>
+                  <hr />
+                  {usuario.seguidores.map((seguidor, index) => (
+                    <div key={index} className="seguidor">
+                      <img
+                        src={seguidor.foto_perfil}
+                        width="56"
+                        height="56"
+                        className="rounded-circle mr-3"
+                      />
+                      <p>{seguidor.usuario}</p>
+                    </div>
+                  ))}
+                </Modal>
+              </div>
                 <hr class="my-2" />
               </div>
+              {/*Seguidores*/}
             </div>
           </div>
-
           {/*Feed*/}
           <div class="col-12 col-lg-8 col-xl-6 order-1 order-lg-2">
             <div class="card">

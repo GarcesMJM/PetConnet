@@ -22,7 +22,9 @@ async function registro(req, res) {
     await usersRef.doc(userRecord.uid).set({
       email,
       usuario: username,
-      mascotas: []
+      mascotas: [],
+      seguidores: [],
+      seguidos: []
     });
 
 
