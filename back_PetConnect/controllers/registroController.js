@@ -22,7 +22,10 @@ async function registro(req, res) {
     await usersRef.doc(userRecord.uid).set({
       email,
       usuario: username,
-      mascotas: []
+      mascotas: [],
+      seguidores: [],
+      seguidos: [],
+      foto_perfil: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
     });
 
 
