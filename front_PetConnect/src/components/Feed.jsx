@@ -62,8 +62,8 @@ export default function Feed({ data }) {
                 />
               </div>
               <div className="ml-2">
-                <div className="h5 m-0">@LeeCross</div>
-                <div className="h7 text-muted">Miracles Lee Cross</div>
+                <div className="h5 m-0">Tú</div>
+                <div className="h7 text-muted">Tú</div>
               </div>
             </div>
             <div>
@@ -135,8 +135,8 @@ export default function Feed({ data }) {
                 />
               </div>
               <div className="ml-2">
-                <div className="h5 m-0">@LeeCross</div>
-                <div className="h7 text-muted">Miracles Lee Cross</div>
+                <div className="h5 m-0">camilo33</div>
+                <div className="h7 text-muted">Camilo</div>
               </div>
             </div>
             <div>
@@ -173,25 +173,15 @@ export default function Feed({ data }) {
         <div className="card-body">
           <div className="text-muted h7 mb-2">
             {" "}
-            <i className="fa fa-clock-o"></i> 10 min ago
+            <i className="fa fa-clock-o"></i> 2023-11-09T06:14:37.099
           </div>
           <a className="card-link" href="#">
             <h5 className="card-title">
               {" "}
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
-              consectetur deserunt illo esse distinctio.
+              Borcer Collie en adoción, nombre Pepe.
             </h5>
           </a>
-
-          <p className="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-            omnis nihil, aliquam est, voluptates officiis iure soluta alias vel
-            odit, placeat reiciendis ut libero! Quas aliquid natus cumque quae
-            repellendus. Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Ipsa, excepturi. Doloremque, reprehenderit! Quos in maiores,
-            soluta doloremque molestiae reiciendis libero expedita assumenda
-            fuga quae. Consectetur id molestias itaque facere? Hic!
-          </p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/petconnect2-4be50.appspot.com/o/Fotos%20publicaciones%2Fborder.jpeg?alt=media&token=c0b74a89-0cd7-4030-8392-a6f25b23eeca" alt="Imagen" />
           <div>
             <span className="badge badge-primary">JavaScript</span>
             <span className="badge badge-primary">Android</span>
@@ -226,8 +216,8 @@ export default function Feed({ data }) {
                 />
               </div>
               <div className="ml-2">
-                <div className="h5 m-0">@LeeCross</div>
-                <div className="h7 text-muted">Miracles Lee Cross</div>
+                <div className="h5 m-0">garces23</div>
+                <div className="h7 text-muted">Garces</div>
               </div>
             </div>
             <div>
@@ -264,27 +254,14 @@ export default function Feed({ data }) {
         <div className="card-body">
           <div className="text-muted h7 mb-2">
             {" "}
-            <i className="fa fa-clock-o"></i> Hace 40 min
+            <i className="fa fa-clock-o"></i> 2023-11-09T06:19:26.364
           </div>
           <a className="card-link" href="#">
             <h5 className="card-title">
-              Totam non adipisci hic! Possimus ducimus amet, dolores illo ipsum
-              quos cum.
+              Gato Egipcio en adopción, 4 años.
             </h5>
           </a>
-
-          <p className="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam sunt
-            fugit reprehenderit consectetur exercitationem odio, quam nobis?
-            Officiis, similique, harum voluptate, facilis voluptas pariatur
-            dolorum tempora sapiente eius maxime quaerat.
-            <a
-              href="https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU"
-              target="_blank"
-            >
-              https://mega.nz/#!1J01nRIb!lMZ4B_DR2UWi9SRQK5TTzU1PmQpDtbZkMZjAIbv97hU
-            </a>
-          </p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/petconnect2-4be50.appspot.com/o/Fotos%20publicaciones%2Fgato_eg.jpeg?alt=media&token=bc428139-d1fe-4de0-a4e4-e66af1a59c84" alt="Imagen" />
         </div>
         <div className="card-footer">
           <a href="#" className="card-link">
