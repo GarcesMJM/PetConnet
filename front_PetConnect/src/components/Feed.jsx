@@ -1,6 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
 
-export default function Feed() {
+const firebaseConfig = {
+  apiKey: "AIzaSyDp11FAxsh_JtvCyzj8sf9OXbmBO4PGBt8",
+  authDomain: "petconnect2-4be50.firebaseapp.com",
+  projectId: "petconnect2-4be50",
+  storageBucket: "petconnect2-4be50.appspot.com",
+  messagingSenderId: "948988551923",
+  appId: "1:948988551923:web:afd3d0cff1d450ae278d86",
+  measurementId: "G-3JCCDR9K1G",
+};
+
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export default function Feed({ data = 'ojXMZFCJGC7e4rmPzlVu' }) {
+
+  const [documentData, setDocumentData] = useState(null);
+
+  const fetchDocumentData = async (documentId) => {
+    console.log(documentId);
+    try {
+      const docRef = doc(db, "publicaciones", documentId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setDocumentData(docSnap.data());
+        console.log(documentData);
+      } else {
+        console.log("El documento no existe");
+      }
+    } catch (e) {
+      console.error("Error encontrando el documento: ", e);
+    }
+  };
+
+  useEffect(() => {
+    if (data) {
+      fetchDocumentData(data);
+    }
+  }, [data]);
+
   return (
     <>
       <div className="card gedf-card">
@@ -54,20 +96,14 @@ export default function Feed() {
         <div className="card-body">
           <div className="text-muted h7 mb-2">
             {" "}
-            <i className="fa fa-clock-o"></i>10 min ago
+            <i className="fa fa-clock-o"></i>{documentData.fecha_hora}
           </div>
           <a className="card-link" href="#">
             <h5 className="card-title">
-              Lorem ipsum dolor sit amet, consectetur adip.
+              {documentData.descripcion}
             </h5>
           </a>
-
-          <p className="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
-            recusandae nulla rem eos ipsa praesentium esse magnam nemo dolor
-            sequi fuga quia quaerat cum, obcaecati hic, molestias minima iste
-            voluptates.
-          </p>
+          <img src={documentData.imagen} alt="Imagen" />
         </div>
         <div className="card-footer">
           <a href="#" className="card-link">

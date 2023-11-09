@@ -1,5 +1,6 @@
 const { initializeApp } = require("firebase/app");
 const { getStorage } = require("firebase/storage");
+const { getFirestore } = require("firebase/firestore");
 const firebaseAuth = require('firebase/auth');
 
 const firebaseConfig = {
@@ -16,5 +17,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = firebaseAuth.getAuth(app);
 const storage = getStorage(app);
+const db = getFirestore(app);
 
-module.exports = { auth, storage };
+module.exports = { auth, storage, db };
