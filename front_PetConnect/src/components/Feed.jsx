@@ -16,9 +16,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export default function Feed({ data = 'ojXMZFCJGC7e4rmPzlVu' }) {
+export default function Feed({ data }) {
 
-  const [documentData, setDocumentData] = useState(null);
+  const [documentData, setDocumentData] = useState({
+    fecha_hora: "2023-11-09T04:27:40.521",
+    descripcion: "Perro Labrador en adopción, su nombre es Toby.",
+    imagen: "https://firebasestorage.googleapis.com/v0/b/petconnect2-4be50.appspot.com/o/Fotos%20publicaciones%2Flabrador.jpeg?alt=media&token=d34db4ae-f04f-4d44-b81f-d44a0a4d072a"
+  });
 
   const fetchDocumentData = async (documentId) => {
     console.log(documentId);
