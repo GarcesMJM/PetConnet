@@ -68,7 +68,7 @@ function Mascota() {
   
       const data = await response.json();
 
-  
+      console.log(data);
       setUsuario((prevUsuario) => ({ ...prevUsuario, ...data }));
     } catch (error) {
       console.error(
@@ -97,6 +97,7 @@ function Mascota() {
 
         const data = await response.json();
 
+        console.log(data);
         setUsuarioAutenticado((prevUsuarioAutenticado) => ({
           ...prevUsuarioAutenticado,
           ...data,
@@ -185,30 +186,7 @@ function Mascota() {
                   height="128"
                 />
                 <h4 class="card-title mb-0">{mascota.nombre}</h4>
-                <div class="text-muted mb-2">Front-end Developer</div>
-
-                <div>
-                  <a class="btn btn-primary btn-sm" href="#">
-                    Follow
-                  </a>
-                  <a class="btn btn-primary btn-sm" href="#">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-message-square"
-                    >
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>{" "}
-                    Message
-                  </a>
-                </div>
+                
               </div>
             </div>
             <div class="card mb-3">
@@ -247,7 +225,7 @@ function Mascota() {
                     </div>
                   </div>
                 </div>
-                <h5 class="card-title mb-0">About</h5>
+                <h5 class="card-title mb-0">Sobre mí</h5>
               </div>
               <div class="card-body">
                 <ul class="list-unstyled mb-0">
@@ -267,7 +245,7 @@ function Mascota() {
                       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                       <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>{" "}
-                    Lives in <a href="#">San Francisco, SA</a>
+                    Raza: <a>Mestizo</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -292,7 +270,7 @@ function Mascota() {
                       ></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>{" "}
-                    Works at <a href="#">GitHub</a>
+                    Estado: <a>En adopción</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -310,7 +288,7 @@ function Mascota() {
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>{" "}
-                    From <a href="#">Boston</a>
+                    Edad: <a>3 años</a>
                   </li>
                 </ul>
               </div>
@@ -352,12 +330,12 @@ function Mascota() {
                     </div>
                   </div>
                 </div>
-                <h5 class="card-title mb-0">Following</h5>
+                <h5 class="card-title mb-0">Responsable</h5>
               </div>
               <div class="card-body">
                 <div class="media">
                   <img
-                    src="https://therichpost.com/wp-content/uploads/2021/03/avatar3.png"
+                    src={usuario.foto_perfil}
                     width="56"
                     height="56"
                     class="rounded-circle mr-2"
@@ -365,7 +343,7 @@ function Mascota() {
                   />
                   <div class="media-body">
                     <p class="my-1">
-                      <strong>Andrew Jones</strong>
+                      <strong>{usuario.usuario}</strong>
                     </p>
                     <a class="btn btn-sm btn-outline-primary" href="#">
                       Unfollow
@@ -382,10 +360,10 @@ function Mascota() {
           <div class="col-12 col-lg-8 col-xl-6 order-1 order-lg-2">
             <div class="card">
               <div class="card-body h-100">
-
+              
                 {/* Formulario de Publicaciones */}
                 {usuarioAutenticado &&
-                usuarioAutenticado.usuario === usuario.usuario && (
+                 (
                   <>
                   <form onSubmit={handleSubmit}>
                     <div class="form-group">
@@ -503,7 +481,7 @@ function Mascota() {
                     </div>
                   </div>
                 </div>
-                <h5 class="card-title mb-0">Activities</h5>
+                <h5 class="card-title mb-0">Actividad Reciente</h5>
               </div>
               <div class="card-body h-100">
                 <div class="media">
@@ -525,7 +503,7 @@ function Mascota() {
                 </div>
                 <hr />
                 <a href="#" class="btn btn-primary btn-sm btn-block">
-                  Load more
+                  Cargar más
                 </a>
               </div>
             </div>

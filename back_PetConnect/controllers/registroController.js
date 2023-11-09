@@ -24,7 +24,8 @@ async function registro(req, res) {
       usuario: username,
       mascotas: [],
       seguidores: [],
-      seguidos: []
+      seguidos: [],
+      foto_perfil: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
     });
 
 

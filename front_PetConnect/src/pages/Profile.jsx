@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import "../css/Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Modal from 'react-modal';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -29,6 +30,8 @@ function Profile() {
   const { id } = useParams();
   const [usuario, setUsuario] = useState(null);
   const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
+  const [mostrarSeguidores, setMostrarSeguidores] = useState(false);
+  const [siguiendo, setSiguiendo] = useState(false);
 
   //OBTENER USUARIO DUEÑO DEL PERFIL/////////////////////////////////////////////////
   const obtenerUsuario = async () => {
@@ -44,6 +47,10 @@ function Profile() {
       const data = await response.json();
 
       setUsuario((prevUsuario) => ({ ...prevUsuario, ...data }));
+      console.log(data.seguidores);
+      obtenerUsuarioAutenticado(data.seguidores);
+
+
     } catch (error) {
       console.error(
         "Error al obtener la información del usuario:",
@@ -51,39 +58,34 @@ function Profile() {
       );
     }
   };
-
   useEffect(() => {
     obtenerUsuario();
   }, []);
   //////////////////////////////////////////////////////////////////////////////////
 
   //OBTENER USUARIO AUTENTICADO/////////////////////////////////////////////////////
-  useEffect(() => {
-    const obtenerUsuarioAutenticado = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/obtenerusuario", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ token: localStorage.getItem("token") }),
+    const obtenerUsuarioAutenticado = async (seguidores2) => {
+        try {
+        const response = await fetch('http://localhost:5000/usuariopornombre2', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: localStorage.getItem('token'), seguidores : seguidores2 }),
         });
 
         const data = await response.json();
 
-        setUsuarioAutenticado((prevUsuarioAutenticado) => ({
-          ...prevUsuarioAutenticado,
-          ...data,
-        }));
-      } catch (error) {
-        console.error(
-          "Error al obtener la información del usuario autenticado:",
-          error.response.data
-        );
-      }
+        console.log(data.siguiendo);
+        if (data.siguiendo){
+          setSiguiendo(true);
+        }
+
+        setUsuarioAutenticado(prevUsuarioAutenticado => ({ ...prevUsuarioAutenticado, ...data }));
+        } catch (error) {
+        console.error('Error al obtener la información del usuario autenticado:', error.response.data);
+        }
     };
-    obtenerUsuarioAutenticado();
-  }, []);
   ///////////////////////////////////////////////////////////////////////////////////////
 
   const [edit, setEdit] = useState(false);
@@ -152,6 +154,66 @@ function Profile() {
     }
   };
 
+  ///SEGUIDORES Y SEGUIR///////////////////////////////////////////////////////
+  const seguirUsuario = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/agregarseguidor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usuario:usuario.usuario, seguidor:usuarioAutenticado.usuario }),
+      });
+
+      const data = await response.json()
+      obtenerUsuario();
+    
+    } catch (error) {
+      console.error(
+        "Error al agregar seguidor",
+        error.response.data
+      );
+    }
+  };
+
+  const eliminarseguidor = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/eliminarseguidor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usuario:usuario.usuario, seguidor:usuarioAutenticado.usuario }),
+      });
+
+      const data = await response.json()
+      obtenerUsuario();
+    
+    } catch (error) {
+      console.error(
+        "Error al agregar seguidor",
+        error.response.data
+      );
+    }
+  };
+  
+  const handleBotonSeguirClick = () => {
+    if (!siguiendo) {
+      setSiguiendo(true); // Cambiar el estado siguiendo a true
+      seguirUsuario(); // Llamar a la función seguirUsuario
+    }
+    else{
+      setSiguiendo(false);
+      eliminarseguidor();
+    }
+  }
+
+  const handleClick = () => {
+    setMostrarSeguidores(!mostrarSeguidores);
+  };
+  ///////////////////////////////////////////////////////////////////////////////
+
+
   //AGREGAR NUEVA MASCOTA///////////////////////////////////////////////////////////
   const [mostrarPanel, setMostrarPanel] = useState(false);
   const [nombreMascota, setNombreMascota] = useState("");
@@ -191,6 +253,7 @@ function Profile() {
 
       // Añade la nueva mascota al estado de las mascotas
       obtenerUsuario();
+      
       // Limpia los campos del formulario
       setNombreMascota("");
       setImagenMascota(null);
@@ -227,26 +290,24 @@ function Profile() {
                 <h4 class="card-title mb-0">{usuario.usuario}</h4>
 
                 <div>
-                  <a class="btn btn-primary btn-sm" href="#">
-                    Follow
-                  </a>
-                  <a class="btn btn-primary btn-sm" href="#">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-message-square"
-                    >
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>{" "}
-                    Message
-                  </a>
+                  {/*Solo para visitante del perfil*/}
+                  {usuarioAutenticado && usuarioAutenticado.usuario !== usuario.usuario && (
+                  <>
+                    {siguiendo ? (
+                      <a class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
+                        Siguiendo
+                      </a>
+                    ) : (
+                      <a class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
+                        Seguir
+                      </a>
+                    )}
+                  </>
+                  )}
+                   {/*Solo para el dueño del perfil*/}
+                    {usuarioAutenticado &&
+                      usuarioAutenticado.usuario === usuario.usuario && (
+                        <>
                   <a
                     class="btn btn-primary btn-sm"
                     href="/login"
@@ -254,6 +315,8 @@ function Profile() {
                   >
                     Sign out
                   </a>
+                  </>
+                      )}
                 </div>
               </div>
             </div>
@@ -360,7 +423,7 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-                <h5 class="card-title mb-0">About</h5>
+                <h5 class="card-title mb-0">Más información</h5>
               </div>
               <div class="card-body">
                 <ul class="list-unstyled mb-0">
@@ -380,7 +443,7 @@ function Profile() {
                       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                       <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>{" "}
-                    Lives in <a href="#">San Francisco, SA</a>
+                    Residencia: <a>{usuario.Residencia}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -405,7 +468,7 @@ function Profile() {
                       ></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>{" "}
-                    Works at <a href="#">GitHub</a>
+                    Contacto: <a>{usuario.telefono}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -423,7 +486,32 @@ function Profile() {
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>{" "}
-                    From <a href="#">Boston</a>
+                    Origen: <a>{usuario.Origen}</a>
+                  </li>
+                  <li class="mb-1">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="feather feather-briefcase feather-sm mr-1"
+                    >
+                      <rect
+                        x="2"
+                        y="7"
+                        width="20"
+                        height="14"
+                        rx="2"
+                        ry="2"
+                      ></rect>
+                      <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>{" "}
+                    Contacto: <a>{usuario.email}</a>
                   </li>
                 </ul>
               </div>
@@ -465,29 +553,51 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-                <h5 class="card-title mb-0">Following</h5>
+                <h5 class="card-title mb-0">Conexiones</h5>
               </div>
               <div class="card-body">
-                <div class="media">
-                  <img
-                    src="https://therichpost.com/wp-content/uploads/2021/03/avatar3.png"
-                    width="56"
-                    height="56"
-                    class="rounded-circle mr-2"
-                    alt="Andrew Jones"
-                  />
-                  <div class="media-body">
-                    <p class="my-1">
-                      <strong>Andrew Jones</strong>
-                    </p>
-                    <a class="btn btn-sm btn-outline-primary" href="#">
-                      Unfollow
-                    </a>
-                  </div>
-                </div>
-
+              <div>
+                {/*Seguidores*/}
+                <p onClick={handleClick}>{usuario.seguidores.length} seguidores</p>
+                <Modal
+                  isOpen={mostrarSeguidores}
+                  onRequestClose={handleClick}
+                  contentLabel="Seguidores"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '20%', // Ajusta el ancho según tus preferencias
+                      height: '60%', // Ajusta la altura según tus preferencias
+                      margin: 'auto',
+                      borderRadius: '10px',
+                      padding: '20px',
+                      overflowY: 'auto' // Habilita la barra de desplazamiento vertical
+                    }
+                  }}
+                >
+                  <h2 style={{ textAlign: 'center' }}>Seguidores</h2>
+                  <hr />
+                  {usuario.seguidores.map((seguidor, index) => (
+                    <div key={index} className="seguidor">
+                      <img
+                        src={seguidor.foto_perfil}
+                        width="56"
+                        height="56"
+                        className="rounded-circle mr-3"
+                      />
+                      <p>{seguidor.usuario}</p>
+                    </div>
+                  ))}
+                  <button onClick={handleClick} className="cerrar-modal">
+                    x
+                  </button>
+                </Modal>
+              </div>
                 <hr class="my-2" />
               </div>
+              {/*Seguidores*/}
             </div>
           </div>
 
@@ -589,7 +699,7 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-                <h5 class="card-title mb-0">Activities</h5>
+                <h5 class="card-title mb-0">Actividad Reciente</h5>
               </div>
               <div class="card-body h-100">
                 <div class="media">
@@ -611,7 +721,7 @@ function Profile() {
                 </div>
                 <hr />
                 <a href="#" class="btn btn-primary btn-sm btn-block">
-                  Load more
+                  Cargar más
                 </a>
               </div>
             </div>

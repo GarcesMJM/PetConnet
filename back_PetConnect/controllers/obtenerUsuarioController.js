@@ -31,7 +31,7 @@ async function obtenerUsuario(req, res) {
       return res.status(200).send(usuario);
     }
   } catch (error) {
-    console.log('Error al obtener la información del usuario:', error);
+    console.log('Error al obtener la información del usuario(1):', error);
     return res.status(500).send({message: 'Error al obtener la información del usuario'});
   }
 }
@@ -79,7 +79,7 @@ async function obtenerUsuarioPorNombre(req, res) {
       return res.status(200).send(usuario);
     }
   } catch (error) {
-    console.log('Error al obtener la información del usuario:', error);
+    console.log('Error al obtener la información del usuario(2):', error);
     return res.status(500).send({message: 'Error al obtener la información del usuario'});
   }
 }
