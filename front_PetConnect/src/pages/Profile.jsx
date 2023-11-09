@@ -33,6 +33,7 @@ function Profile() {
   const [post, setPost] = useState(false);
   const [petName, setPetName] = useState("");
   const [mostrarSeguidores, setMostrarSeguidores] = useState(false);
+  const [siguiendo, setSiguiendo] = useState(false);
 
   //OBTENER USUARIO DUEÑO DEL PERFIL/////////////////////////////////////////////////
   const obtenerUsuario = async () => {
@@ -46,10 +47,12 @@ function Profile() {
       });
 
       const data = await response.json();
-      console.log(data.seguidores);
 
-    
       setUsuario((prevUsuario) => ({ ...prevUsuario, ...data }));
+      console.log(data.seguidores);
+      obtenerUsuarioAutenticado(data.seguidores);
+
+
     } catch (error) {
       console.error(
         "Error al obtener la información del usuario:",
@@ -63,26 +66,28 @@ function Profile() {
   //////////////////////////////////////////////////////////////////////////////////
 
   //OBTENER USUARIO AUTENTICADO/////////////////////////////////////////////////////
-  useEffect(() => {
-    const obtenerUsuarioAutenticado = async () => {
+    const obtenerUsuarioAutenticado = async (seguidores2) => {
         try {
-        const response = await fetch('http://localhost:5000/obtenerusuario', {
+        const response = await fetch('http://localhost:5000/usuariopornombre2', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ token: localStorage.getItem('token') }),
+            body: JSON.stringify({ token: localStorage.getItem('token'), seguidores : seguidores2 }),
         });
 
         const data = await response.json();
+
+        console.log(data.siguiendo);
+        if (data.siguiendo){
+          setSiguiendo(true);
+        }
 
         setUsuarioAutenticado(prevUsuarioAutenticado => ({ ...prevUsuarioAutenticado, ...data }));
         } catch (error) {
         console.error('Error al obtener la información del usuario autenticado:', error.response.data);
         }
     };
-    obtenerUsuarioAutenticado();
-  }, []);
   ///////////////////////////////////////////////////////////////////////////////////////
 
   const handleImage = async (e) => {
@@ -113,9 +118,64 @@ function Profile() {
     }
   };
 
+  ///SEGUIDORES Y SEGUIR///////////////////////////////////////////////////////
+  const seguirUsuario = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/agregarseguidor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usuario:usuario.usuario, seguidor:usuarioAutenticado.usuario }),
+      });
+
+      const data = await response.json()
+      obtenerUsuario();
+    
+    } catch (error) {
+      console.error(
+        "Error al agregar seguidor",
+        error.response.data
+      );
+    }
+  };
+
+  const eliminarseguidor = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/eliminarseguidor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ usuario:usuario.usuario, seguidor:usuarioAutenticado.usuario }),
+      });
+
+      const data = await response.json()
+      obtenerUsuario();
+    
+    } catch (error) {
+      console.error(
+        "Error al agregar seguidor",
+        error.response.data
+      );
+    }
+  };
+  
+  const handleBotonSeguirClick = () => {
+    if (!siguiendo) {
+      setSiguiendo(true); // Cambiar el estado siguiendo a true
+      seguirUsuario(); // Llamar a la función seguirUsuario
+    }
+    else{
+      setSiguiendo(false);
+      eliminarseguidor();
+    }
+  }
+
   const handleClick = () => {
     setMostrarSeguidores(!mostrarSeguidores);
   };
+  ///////////////////////////////////////////////////////////////////////////////
 
   //AGREGAR NUEVA MASCOTA///////////////////////////////////////////////////////////
   const [mostrarPanel, setMostrarPanel] = useState(false);
@@ -218,6 +278,8 @@ function Profile() {
     return <div>Cargando...</div>;
   }
 
+  
+
   return (
     <div className="maincontainer">
       <div class="container">
@@ -241,26 +303,20 @@ function Profile() {
                     placeholder="Selecciona la imagen"
                     onChange={handleImage}
                   />
-                  <a class="btn btn-primary btn-sm" href="#">
-                    Follow
-                  </a>
-                  <a class="btn btn-primary btn-sm" href="#">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="feather feather-message-square"
-                    >
-                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>{" "}
-                    Message
-                  </a>
+                  {/*Solo para visitante del perfil*/}
+                  {usuarioAutenticado && usuarioAutenticado.usuario !== usuario.usuario && (
+                  <>
+                    {siguiendo ? (
+                      <a class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
+                        Siguiendo
+                      </a>
+                    ) : (
+                      <a class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
+                        Seguir
+                      </a>
+                    )}
+                  </>
+                  )}
                 </div>
               </div>
             </div>
@@ -463,6 +519,9 @@ function Profile() {
                       <p>{seguidor.usuario}</p>
                     </div>
                   ))}
+                  <button onClick={handleClick} className="cerrar-modal">
+                    x
+                  </button>
                 </Modal>
               </div>
                 <hr class="my-2" />

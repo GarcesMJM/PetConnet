@@ -246,3 +246,14 @@
   {
     margin-right: 3px;
   }
+
+  .cerrar-modal {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
