@@ -1,0 +1,15 @@
+p{
+    font-size: 18px;
+}
+.banner-box__img{
+    filter: blur(1px);
+}
+.banner-box__txt text-ex-large{
+    font-size: 30px;
+}
+.petconnect{
+    text-decoration: none;
+}
+#textobanner{
+    color:dimgrey;
+}

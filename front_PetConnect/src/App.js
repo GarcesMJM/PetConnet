@@ -6,6 +6,7 @@ import Posts from './pages/Posts';
 import Login from './pages/Login';
 import Mascota from './pages/Mascota';
 import Prueba from './pages/Prueba';
+import ForgotPwd from './pages/ForgotPwd';
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="login" element={<Login />} />
       <Route path="mascota/:id" element={<Mascota />} />
       <Route path="prueba" element={<Prueba />} />
+      <Route path='olvidocontraseña' element={<ForgotPwd/>}/>
     </Routes>
   );
 }

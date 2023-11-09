@@ -6,20 +6,19 @@ const obtenerUsuarioController = require('../controllers/obtenerUsuarioControlle
 const cambiarFotoPerfilController = require('../controllers/cambiarFotoPerfilController');
 const obtenerMascotaController = require('../controllers/obtenerMascotaController');
 const publicarController = require('../controllers/publicarController');
+const agregarMascotaController = require('../controllers/agregarMascotaController');
+const agregarPublicacionController = require('../controllers/agregarPublicacionController');
 
 // Rutas de autenticación
 router.post('/register', registroController);
-
 router.post('/iniciarsesion', iniciarsesionController);
-
 router.post('/obtenerusuario', obtenerUsuarioController.obtenerUsuario);
-
 router.post('/usuariopornombre', obtenerUsuarioController.obtenerUsuarioPorNombre);
-
 router.post('/cambiarfoto', cambiarFotoPerfilController);
-
 router.post('/obtenermascota', obtenerMascotaController);
 
+router.post('/agregarmascota', agregarMascotaController);
+router.post('/agregarpublicacion', agregarPublicacionController);
 router.post('/publicar', publicarController);
 
 module.exports = router;

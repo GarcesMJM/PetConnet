@@ -1,13 +1,119 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-//import "../css/Mascota.css";
+import "../css/Mascota.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDp11FAxsh_JtvCyzj8sf9OXbmBO4PGBt8",
+  authDomain: "petconnect2-4be50.firebaseapp.com",
+  projectId: "petconnect2-4be50",
+  storageBucket: "petconnect2-4be50.appspot.com",
+  messagingSenderId: "948988551923",
+  appId: "1:948988551923:web:afd3d0cff1d450ae278d86",
+  measurementId: "G-3JCCDR9K1G",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+const storage = getStorage(app);
+
 function Mascota() {
   const { id } = useParams();
+  const [mascota, setMascota] = useState(null);
+  const [usuario, setUsuario] = useState(null);
+  const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
 
+  //OBTENER MASCOTA////////////////////////////////////////////////////////////////////
+  const obtenerMascota = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/obtenermascota", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      });
+  
+      const data = await response.json();
+  
+      setMascota((prevMascota) => ({ ...prevMascota, ...data }));
+  
+      // Llama a obtenerUsuario aquí, después de que se haya establecido el estado de mascota
+      obtenerUsuario(data.usuario);
+    } catch (error) {
+      console.error(
+        "Error al obtener la información de la mascota:",
+        error.response.data
+      );
+    }
+  };
+  
+  const obtenerUsuario = async (usuario2) => {
+    try {
+      const response = await fetch("http://localhost:5000/usuariopornombre", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: usuario2 }),
+      });
+  
+      const data = await response.json();
+
+  
+      setUsuario((prevUsuario) => ({ ...prevUsuario, ...data }));
+    } catch (error) {
+      console.error(
+        "Error al obtener la información del usuario:",
+        error.response.data
+      );
+    }
+  };
+  
+  useEffect(() => {
+    obtenerMascota();
+  }, []);
+  //////////////////////////////////////////////////////////////////////////////////
+
+  //OBTENER USUARIO AUTENTICADO/////////////////////////////////////////////////////
+  useEffect(() => {
+    const obtenerUsuarioAutenticado = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/obtenerusuario", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: localStorage.getItem("token") }),
+        });
+
+        const data = await response.json();
+
+        setUsuarioAutenticado((prevUsuarioAutenticado) => ({
+          ...prevUsuarioAutenticado,
+          ...data,
+        }));
+      } catch (error) {
+        console.error(
+          "Error al obtener la información del usuario autenticado:",
+          error.response.data
+        );
+      }
+    };
+    obtenerUsuarioAutenticado();
+  }, []);
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+
+  //AGREGAR NUEVA PUBLICACION/////////////////////////////////////////////////////////////
   const [textoPublicacion, setTextoPublicacion] = useState("");
   const [imagenPublicacion, setImagenPublicacion] = useState(null);
 
@@ -19,40 +125,46 @@ function Mascota() {
     setImagenPublicacion(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes procesar la publicación, por ejemplo, enviarla a un servidor
-    // y luego limpiar los campos del formulario.
-    setTextoPublicacion("");
-    setImagenPublicacion(null);
+
+    const ArchivoI = imagenPublicacion;
+    const refArchivo = ref(storage, `Fotos publicaciones/${ArchivoI.name}`);
+    await uploadBytes(refArchivo, ArchivoI);
+    const urlImDesc = await getDownloadURL(refArchivo);
+
+    const urlImagen=urlImDesc;
+    const idDocMascota= mascota.id;
+    console.log(idDocMascota);
+    console.log(urlImagen);
+    console.log(textoPublicacion);
+
+    try {
+      const response = await fetch('http://localhost:5000/agregarpublicacion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({idDocMascota, urlImagen, textoPublicacion}),
+      });
+  
+      const data = await response.json();
+  
+      obtenerMascota();
+      // Añade la nueva mascota al estado de las mascotas
+      setMascota(prevMascota => ({
+        ...prevMascota,
+        publicaciones: [...prevMascota.publicaciones, data],
+      }));
+  
+      // Limpia los campos del formulario
+      setTextoPublicacion("");
+      setImagenPublicacion(null);
+    } catch (error) {
+      console.error('Error al agregar la publicacion:', error);
+    }
   };
-
-  const [mascota, setMascota] = useState(null);
-
-  useEffect(() => {
-    const obtenerMascota = async () => {
-      try {
-        const response = await fetch("http://localhost:5000/obtenermascota", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ id }),
-        });
-
-        const data = await response.json();
-        console.log(Mascota);
-
-        setMascota((prevMascota) => ({ ...prevMascota, ...data }));
-      } catch (error) {
-        console.error(
-          "Error al obtener la información de la mascota:",
-          error.response.data
-        );
-      }
-    };
-    obtenerMascota();
-  }, []);
+///////////////////////////////////////////////////////////////////////////////////////////
 
   if (!mascota) {
     return <div>Cargando...</div>;
@@ -270,31 +382,37 @@ function Mascota() {
           <div class="col-12 col-lg-8 col-xl-6 order-1 order-lg-2">
             <div class="card">
               <div class="card-body h-100">
-                {/* Formulario de Publicaciones */}
-                <form onSubmit={handleSubmit}>
-                  <div class="form-group">
-                    <textarea
-                      class="form-control"
-                      rows="3"
-                      placeholder="Escribe tu publicación"
-                      value={textoPublicacion}
-                      onChange={handleTextoChange}
-                    />
-                  </div>
-                  <div class="form-group">
-                    <input
-                      type="file"
-                      class="form-control-file"
-                      accept="image/*"
-                      onChange={handleImagenChange}
-                    />
-                  </div>
-                  <button type="submit" class="btn btn-primary">
-                    Publicar
-                  </button>
-                </form>
 
-                <hr />
+                {/* Formulario de Publicaciones */}
+                {usuarioAutenticado &&
+                usuarioAutenticado.usuario === usuario.usuario && (
+                  <>
+                  <form onSubmit={handleSubmit}>
+                    <div class="form-group">
+                      <textarea
+                        class="form-control"
+                        rows="3"
+                        placeholder="Escribe tu publicación"
+                        value={textoPublicacion}
+                        onChange={handleTextoChange}
+                      />
+                    </div>
+                    <div class="form-group">
+                      <input
+                        type="file"
+                        class="form-control-file"
+                        accept="image/*"
+                        onChange={handleImagenChange}
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Publicar
+                    </button>
+                  </form>
+                  <hr />
+                </>
+                )}
+                {/*////////*/}
 
                 {/*Publicaciones*/}
                 {mascota.publicaciones.map((publicacion) => (
