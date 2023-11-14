@@ -167,7 +167,15 @@ function Mascota() {
   };
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-  if (!mascota) {
+  if (!mascota ) {
+    return <div>Cargando...</div>;
+  }
+
+  if(!usuario){
+    return <div>Cargando...</div>;
+  }
+
+  if(!usuarioAutenticado){
     return <div>Cargando...</div>;
   }
 
