@@ -31,6 +31,7 @@ function Profile() {
   const [usuario, setUsuario] = useState(null);
   const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
   const [mostrarSeguidores, setMostrarSeguidores] = useState(false);
+  const [mostrarSeguidos, setMostrarSeguidos] = useState(false);
   const [siguiendo, setSiguiendo] = useState(false);
 
   //BOTON////////////////////////////////////////////////////////////////////////////
@@ -219,6 +220,10 @@ function Profile() {
 
   const handleClick = () => {
     setMostrarSeguidores(!mostrarSeguidores);
+  };
+
+  const handleClick2 = () => {
+    setMostrarSeguidos(!mostrarSeguidos);
   };
   ///////////////////////////////////////////////////////////////////////////////
 
@@ -590,9 +595,48 @@ function Profile() {
                   </button>
                 </Modal>
               </div>
-                <hr class="my-2" />
+
+              <div>
+                {/*Seguidos*/}
+                <p onClick={handleClick2}>{usuario.seguidos.length} seguidos</p>
+                <Modal
+                  isOpen={mostrarSeguidos}
+                  onRequestClose={handleClick2}
+                  contentLabel="Seguidores"
+                  style={{
+                    overlay: {
+                      backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                    },
+                    content: {
+                      width: '20%', // Ajusta el ancho según tus preferencias
+                      height: '60%', // Ajusta la altura según tus preferencias
+                      margin: 'auto',
+                      borderRadius: '10px',
+                      padding: '20px',
+                      overflowY: 'auto' // Habilita la barra de desplazamiento vertical
+                    }
+                  }}
+                >
+                  <h2 style={{ textAlign: 'center' }}>Seguidos</h2>
+                  <hr />
+                  {usuario.seguidos.map((seguido, index) => (
+                    <div key={index} className="seguido">
+                      <img
+                        src={seguido.foto_perfil}
+                        width="56"
+                        height="56"
+                        className="rounded-circle mr-3"
+                      />
+                      <p>{seguido.usuario}</p>
+                    </div>
+                  ))}
+                  <button onClick={handleClick2} className="cerrar-modal">
+                    x
+                  </button>
+                </Modal>
               </div>
-              {/*Seguidores*/}
+              </div>
+              {/*Seguidos*/}
             </div>
           </div>
 

@@ -76,6 +76,22 @@ async function obtenerUsuarioPorNombre(req, res) {
       // Añade la información de los seguidores al usuario
       usuario.seguidores = seguidores;
 
+      // Obtiene la información de los seguidos del usuario
+      const seguidosPromesas = usuario.seguidos.map(nombreSeguidor => 
+        admin.firestore().collection('usuarios').where('usuario', '==', nombreSeguidor).get()
+      );
+      const seguidosDocs = await Promise.all(seguidosPromesas);
+      const seguidos = seguidosDocs.map(snapshot => {
+        if (!snapshot.empty) {
+          return snapshot.docs[0].data();
+        }
+      });
+
+      // Añade la información de los seguidos al usuario
+      usuario.seguidos = seguidos;
+
+      console.log("Seguidoss", usuario.seguidos);
+
       return res.status(200).send(usuario);
     }
   } catch (error) {
