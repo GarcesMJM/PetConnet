@@ -146,7 +146,7 @@ function Mascota() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({idDocMascota, urlImagen, textoPublicacion}),
+        body: JSON.stringify({idDocMascota, urlImagen, textoPublicacion, usuario:usuario.usuario}),
       });
   
       const data = await response.json();

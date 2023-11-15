@@ -10,6 +10,8 @@ const agregarMascotaController = require('../controllers/agregarMascotaControlle
 const agregarPublicacionController = require('../controllers/agregarPublicacionController');
 const agregarSeguidorController = require('../controllers/agregarSeguidorController');
 const eliminarSeguidorController = require('../controllers/eliminarSeguidorController');
+const obtenerPublicacionesController = require('../controllers/obtenerPublicacionesController');
+
 // Rutas de autenticación
 router.post('/register', registroController);
 router.post('/iniciarsesion', iniciarsesionController);
@@ -24,5 +26,7 @@ router.post('/agregarpublicacion', agregarPublicacionController);
 router.post('/publicar', publicarController);
 router.post('/agregarseguidor', agregarSeguidorController);
 router.post('/eliminarseguidor', eliminarSeguidorController);
+
+router.get('/obtenerpublicaciones', obtenerPublicacionesController);
 
 module.exports = router;

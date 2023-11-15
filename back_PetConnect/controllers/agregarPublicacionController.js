@@ -2,14 +2,16 @@ const admin = require('firebase-admin');
 
 async function agregarPublicacion(req, res) {
   try {
-    const { idDocMascota, urlImagen, textoPublicacion } = req.body;
+    const { idDocMascota, urlImagen, textoPublicacion, usuario} = req.body;
 
     // Crea un nuevo documento en la colección 'publicaciones'
     const docRef = await admin.firestore().collection('publicaciones').add({
       imagen: urlImagen,
       descripcion: textoPublicacion,
       comentarios: [],
-      likes: []
+      likes: [],
+      usuario: usuario,
+      doc_mascota: idDocMascota
     });
 
     // Obtiene el documento de la mascota de la colección 'mascotas'

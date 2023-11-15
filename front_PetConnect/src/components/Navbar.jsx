@@ -5,7 +5,7 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-light bg-white">
         <a href="#" className="navbar-brand">
-          React Bootsbook
+          PetConnect
         </a>
         <form className="form-inline">
           <div className="input-group">
