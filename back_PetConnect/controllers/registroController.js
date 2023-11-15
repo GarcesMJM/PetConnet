@@ -25,7 +25,8 @@ async function registro(req, res) {
       mascotas: [],
       seguidores: [],
       seguidos: [],
-      foto_perfil: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+      foto_perfil: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      fundacion: 0
     });
 
 

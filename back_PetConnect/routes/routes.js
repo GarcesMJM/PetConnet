@@ -11,6 +11,7 @@ const agregarPublicacionController = require('../controllers/agregarPublicacionC
 const agregarSeguidorController = require('../controllers/agregarSeguidorController');
 const eliminarSeguidorController = require('../controllers/eliminarSeguidorController');
 const obtenerPublicacionesController = require('../controllers/obtenerPublicacionesController');
+const fundacionController = require('../controllers/fundacionController');
 const totalUsuariosController = require('../controllers/totalUsuariosController'); // Importa el controlador
 const totalMascotasController = require('../controllers/totalMascotasController'); // Importa el nuevo controlador
 
@@ -29,7 +30,10 @@ router.post('/agregarpublicacion', agregarPublicacionController);
 router.post('/publicar', publicarController);
 router.post('/agregarseguidor', agregarSeguidorController);
 router.post('/eliminarseguidor', eliminarSeguidorController);
+router.post('/enviarsolicitudfundacion', fundacionController.solicitarFundacion);
+router.post('/aceptarsolicitud', fundacionController.aceptarSolicitud);
 
+router.get('/obtenersolicitudes', fundacionController.obtenerSolicitudes);
 router.get('/obtenerpublicaciones', obtenerPublicacionesController);
 router.get('/obtenertotalusuarios', totalUsuariosController.obtenerTotalUsuarios);
 router.get('/obtenertotalmascotas', totalMascotasController.obtenerTotalMascotas);

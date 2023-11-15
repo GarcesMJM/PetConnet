@@ -32,6 +32,7 @@ function Profile() {
   const [usuarioAutenticado, setUsuarioAutenticado] = useState(null);
   const [mostrarSeguidores, setMostrarSeguidores] = useState(false);
   const [mostrarSeguidos, setMostrarSeguidos] = useState(false);
+  const [mostrarSolicitud, setMostrarSolicitud] = useState(false);
   const [siguiendo, setSiguiendo] = useState(false);
 
   //BOTON////////////////////////////////////////////////////////////////////////////
@@ -225,7 +226,39 @@ function Profile() {
   const handleClick2 = () => {
     setMostrarSeguidos(!mostrarSeguidos);
   };
+
+  const handleClick3 = () => {
+    setMostrarSolicitud(!mostrarSolicitud);
+  };
   ///////////////////////////////////////////////////////////////////////////////
+
+
+  //SOLCITAR FUNDACION/////////////////////////////////////////////////////////
+  const solicitarFundacion = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/enviarsolicitudfundacion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombreUsuario: usuario.usuario, // Reemplaza esto con el nombre de usuario
+          fechaHora: new Date().toISOString(),
+        }),
+      });
+  
+      const data = await response.json();
+  
+      console.log(data);
+    } catch (error) {
+      console.error(
+        "Error al solicitar la fundación:",
+        error.response.data
+      );
+    }
+  };
+
+  //////////////////////////////////////////////////////////////////////////////
 
 
   //AGREGAR NUEVA MASCOTA///////////////////////////////////////////////////////////
@@ -404,8 +437,67 @@ function Profile() {
                       </form>
                     </div>
                   )}
+                  <hr class="my-2" />
+                  {usuarioAutenticado.fundacion!==2 && (
+                  <>
+                  {/*Fundación*/}
+                  <div>
+                    <div
+                      className="text-muted mb-2"
+                      onClick={() => {
+                        handleClick3();
+                        if (usuario.fundacion === 0) {
+                          usuario.fundacion=1;                        
+                          solicitarFundacion();
+                        }
+                      }}
+                    >
+                      <button className="btn btn-light">Quiero ser Fundación</button>
+                      <Modal
+                        isOpen={mostrarSolicitud}
+                        onRequestClose={handleClick3}
+                        contentLabel="Seguidores"
+                        style={{
+                          overlay: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                          },
+                          content: {
+                            width: '20%', // Ajusta el ancho según tus preferencias
+                            height: '20%', // Ajusta la altura según tus preferencias
+                            margin: 'auto',
+                            borderRadius: '10px',
+                            padding: '20px',
+                            overflowY: 'auto' // Habilita la barra de desplazamiento vertical
+                          }
+                        }}
+                      >
+                        <h2 style={{ textAlign: 'center' }}>Estado de Solicitud</h2>
+                        <hr />
+                        {usuario.fundacion === 1 ? (
+                          <p>La solicitud se encuentra en revisión</p>
+                        ) : null}
+                        {usuario.fundacion === 0 ? (
+                          <p>Solicitud enviada</p>
+                        ) : null}
+                        {usuario.fundacion === 4 ? (
+                          <p>Solicitud rechazada</p>
+                        ) : null}
+                        <button onClick={handleClick3} className="cerrar-modal">
+                          x
+                        </button>
+                      </Modal>
+                    </div>
+                  </div>
+                  </>
+                  )}
                 </>
               )}
+              {usuario.fundacion===2 && (
+                  <> 
+                    <hr class="my-2" />
+                    <p>Fundación Verificada</p>
+                  </>
+                  )}
             {/*////////*/}
 
             <div class="card mb-3">
