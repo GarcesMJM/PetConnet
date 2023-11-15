@@ -277,6 +277,9 @@ function Profile() {
   const [mostrarPanel, setMostrarPanel] = useState(false);
   const [nombreMascota, setNombreMascota] = useState("");
   const [imagenMascota, setImagenMascota] = useState(null);
+  const [edadMascota, setEdadMascota] = useState('');
+  const [razaMascota, setRazaMascota] = useState('');
+  const [estadoMascota, setEstadoMascota] = useState(''); // Nuevo estado para el dropdown
 
   const handleNombreChange = (e) => {
     setNombreMascota(e.target.value);
@@ -308,7 +311,7 @@ function Profile() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ nombreMascota, urlImagen, nombreUsuario }),
+        body: JSON.stringify({ nombreMascota, urlImagen, nombreUsuario, edadMascota, estadoMascota, razaMascota }),
       });
 
       const data = await response.json();
@@ -317,9 +320,13 @@ function Profile() {
       obtenerUsuario();
       
       // Limpia los campos del formulario
+      setEdadMascota("");
+      setEstadoMascota("");
+      setRazaMascota("");
       setNombreMascota("");
       setImagenMascota(null);
       setMostrarPanel(false);
+
     } catch (error) {
       console.error("Error al agregar la mascota:", error);
     }
@@ -362,7 +369,7 @@ function Profile() {
                 <h4 class="card-title mb-2">{usuario.usuario}</h4>
 
                 <div>
-                  {/*Solo para visitante del perfil*/}
+                  {/* Solo para visitante del perfil */}
                   {usuarioAutenticado && usuarioAutenticado.usuario !== usuario.usuario && (
                     <>
                       {siguiendo ? (
@@ -374,8 +381,16 @@ function Profile() {
                           Seguir
                         </button>
                       )}
+
+                      {/* Mostrar botón Donar solo si el usuario es una fundación */}
+                      {usuario.fundacion === 2 && (
+                        <button class="btn btn-primary btn-sm" onClick>
+                          Donar
+                        </button>
+                      )}
                     </>
                   )}
+
                    {/*Solo para el dueño del perfil*/}
                     {usuarioAutenticado &&
                       usuarioAutenticado.usuario === usuario.usuario && (
@@ -436,24 +451,59 @@ function Profile() {
                       </form>
                     </div>
                   )}
-                  <hr class="my-2" />
-                  <div
-                    class="text-muted mb-2"
-                    onClick={() => setMostrarPanel(true)}
-                  >
+                 <hr class="my-2" />
+                  <div class="text-muted mb-2" onClick={() => setMostrarPanel(true)}>
                     <button className="btn btn-light">Agregar mascota</button>
                   </div>
                   {mostrarPanel && (
                     <div>
                       <form onSubmit={handleSubmit}>
+                        {/* Input para seleccionar la imagen */}
                         <input type="file" onChange={handleImagenChange} />
+
+                        {/* Input para el nombre de la mascota */}
                         <input
                           type="text"
                           value={nombreMascota}
                           onChange={handleNombreChange}
                           placeholder="Nombre de la mascota"
                         />
-                        <button type="submit">Guardar</button>
+                        <div className="mb-1"></div>
+
+                        {/* Input para la raza de la mascota */}
+                        <input
+                          type="text"
+                          value={razaMascota}
+                          onChange={(e) => setRazaMascota(e.target.value)}
+                          placeholder="Raza de la mascota"
+                        />
+                        <div className="mb-1"></div>
+
+                        {/* Input para la edad de la mascota */}
+                        <input
+                          type="text"
+                          value={edadMascota}
+                          onChange={(e) => setEdadMascota(e.target.value)}
+                          placeholder="Nacimiento en dia/mes/año"
+                        />
+                        <div className="mb-1"></div>
+
+                        {/* Dropdown para el estado de la mascota */}
+                        <select
+                          value={estadoMascota}
+                          onChange={(e) => setEstadoMascota(e.target.value)}
+                        >
+                          <option value="">Seleccionar estado</option>
+                          <option value="En Adopción">En Adopción</option>
+                          <option value="Perdido">Perdido</option>
+                          <option value="Adoptado">Adoptado</option>
+                        </select>
+                        <div className="mb-1"></div>
+
+                        {/* Botón para guardar */}
+                        <button className="btn btn-light" type="submit">
+                          Guardar
+                        </button>
                       </form>
                     </div>
                   )}

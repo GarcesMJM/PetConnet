@@ -194,7 +194,19 @@ function Mascota() {
                   width="128"
                   height="128"
                 />
-                <h4 class="card-title mb-0">{mascota.nombre}</h4>                
+                <h4 class="card-title mb-0">{mascota.nombre}</h4>  
+                <div>
+                  {/* Solo para visitante del perfil */}
+                  {usuarioAutenticado && usuarioAutenticado.usuario !== usuario.usuario && mascota.estado ==='En Adopción' && (
+                    <>
+    
+                        <button class="btn btn-primary btn-sm" onClick>
+                          Adoptar
+                        </button>
+                     
+                    </>
+                  )}
+                </div>             
               </div>
             </div>
             <div class="card mb-3">
