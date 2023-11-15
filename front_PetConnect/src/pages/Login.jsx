@@ -172,6 +172,7 @@ const Login = () => {
                   ) : (
                     <div className="forgot-password">
                       <span>
+                        <Link to="/olvidocontraseña">Ingresa aquí</Link>
                       </span>
                     </div>
                   )}

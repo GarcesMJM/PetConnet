@@ -522,6 +522,7 @@ function Profile() {
                       }}
                     >
                       <button className="btn btn-light">Quiero ser Fundación</button>
+                      {/* Modal */}
                       <Modal
                         isOpen={mostrarSolicitud}
                         onRequestClose={handleClick3}
@@ -531,8 +532,8 @@ function Profile() {
                             backgroundColor: 'rgba(0, 0, 0, 0.5)'
                           },
                           content: {
-                            width: '20%', // Ajusta el ancho según tus preferencias
-                            height: '20%', // Ajusta la altura según tus preferencias
+                            width: '30%', // Ajusta el ancho según tus preferencias
+                            height: '30%', // Ajusta la altura según tus preferencias
                             margin: 'auto',
                             borderRadius: '10px',
                             padding: '20px',
@@ -540,18 +541,14 @@ function Profile() {
                           }
                         }}
                       >
-                        <h2 style={{ textAlign: 'center' }}>Estado de Solicitud</h2>
+                        <h2 className="modal-title">Estado de Solicitud</h2>
                         <hr />
                         {usuario.fundacion === 1 ? (
                           <p>La solicitud se encuentra en revisión</p>
                         ) : null}
-                        {usuario.fundacion === 0 ? (
-                          <p>Solicitud enviada</p>
-                        ) : null}
-                        {usuario.fundacion === 4 ? (
-                          <p>Solicitud rechazada</p>
-                        ) : null}
-                        <button onClick={handleClick3} className="cerrar-modal">
+                        {usuario.fundacion === 0 ? <p>Solicitud enviada</p> : null}
+                        {usuario.fundacion === 4 ? <p>Solicitud rechazada</p> : null}
+                        <button onClick={handleClick3} className="modal-close">
                           x
                         </button>
                       </Modal>
