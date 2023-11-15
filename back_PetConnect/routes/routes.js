@@ -14,6 +14,7 @@ const obtenerPublicacionesController = require('../controllers/obtenerPublicacio
 const fundacionController = require('../controllers/fundacionController');
 const totalUsuariosController = require('../controllers/totalUsuariosController'); // Importa el controlador
 const totalMascotasController = require('../controllers/totalMascotasController'); // Importa el nuevo controlador
+const obtenerMascotaAleatoria = require('../controllers/obtenerMascotaAleatoriaController');
 
 
 // Rutas de autenticación
@@ -37,6 +38,7 @@ router.get('/obtenersolicitudes', fundacionController.obtenerSolicitudes);
 router.get('/obtenerpublicaciones', obtenerPublicacionesController);
 router.get('/obtenertotalusuarios', totalUsuariosController.obtenerTotalUsuarios);
 router.get('/obtenertotalmascotas', totalMascotasController.obtenerTotalMascotas);
+router.get('/obtenerMascotaAleatoria', obtenerMascotaAleatoria);
 
 
 module.exports = router;

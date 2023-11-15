@@ -369,8 +369,7 @@ function Mascota() {
               <div class="card-body h-100">
               
                 {/* Formulario de Publicaciones */}
-                {usuarioAutenticado &&
-                 (
+                {usuarioAutenticado && usuarioAutenticado.usuario === usuario.usuario && (
                   <>
                   <form onSubmit={handleSubmit}>
                     <div class="form-group mb-2">
