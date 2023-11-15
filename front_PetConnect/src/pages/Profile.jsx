@@ -430,30 +430,34 @@ function Profile() {
                           onChange={handlePhoneChange}
                           placeholder="Teléfono"
                         />
+                        
                         <input type="file" onChange={handleProfileChange} />
-
-                        <button type="submit">Guardar</button>
+                        <div class="mb-1"></div>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
                       </form>
                     </div>
                   )}
                   <hr class="my-2" />
                   <div
                     class="text-muted mb-2"
-                    onClick={() => setMostrarPanel(true)}
-                  >
-                    <button className="btn btn-light">Agregar mascota</button>
+                    onClick={() => {
+                      setMostrarPanel(true);
+                      handleEditClick1();
+                    }}                  >
+                    <button className="btn btn-light" disabled={buttonDisabled}>Agregar mascota</button>
                   </div>
                   {mostrarPanel && (
                     <div>
                       <form onSubmit={handleSubmit}>
-                        <input type="file" onChange={handleImagenChange} />
-                        <input
+                      <input
                           type="text"
                           value={nombreMascota}
                           onChange={handleNombreChange}
                           placeholder="Nombre de la mascota"
                         />
-                        <button type="submit">Guardar</button>
+                        <input type="file" onChange={handleImagenChange} />
+                        <div class="mb-1"></div>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
                       </form>
                     </div>
                   )}
