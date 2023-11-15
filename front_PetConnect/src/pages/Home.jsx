@@ -1,8 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../css/home.css";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDp11FAxsh_JtvCyzj8sf9OXbmBO4PGBt8",
+  authDomain: "petconnect2-4be50.firebaseapp.com",
+  projectId: "petconnect2-4be50",
+  storageBucket: "petconnect2-4be50.appspot.com",
+  messagingSenderId: "948988551923",
+  appId: "1:948988551923:web:afd3d0cff1d450ae278d86",
+  measurementId: "G-3JCCDR9K1G",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 function Home() {
+  const [publicaciones, setPublicaciones] = useState(null);
+
+  useEffect(() => {
+    const obtenerPublicaciones = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/obtenerpublicaciones", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        const data = await response.json();
+        setPublicaciones(data);
+
+        console.log(data);
+        // Aquí puedes actualizar el estado de tu componente con las publicaciones obtenidas
+      } catch (error) {
+        console.error(
+          "Error al obtener las publicaciones:",
+          error.response.data
+        );
+      }
+    };
+    obtenerPublicaciones();
+  }, []);
+
   return (
     <div className="Home">
       <div class="header-wrap">
@@ -217,106 +262,33 @@ function Home() {
 
           <div class="property-list">
             <ul class="row">
-              <li class="col-md-6">
-                <div class="property-box">
-                  <div class="property-box__left">
-                    <img src="assets/images/golden.jpeg" alt="" />
-                  </div>
-                  <div class="property-box__right">
-                    <div class="property-box__title h3">
-                      <a href="#">Golden Retriever</a>
+              {publicaciones && publicaciones.slice(0, 4).map((publicacion) => (
+                <li class="col-md-6">
+                  <div class="property-box">
+                    <div class="property-box__left">
+                      <img src={publicacion.imagen} alt="Img"/>
                     </div>
-                    <div class="property-box__amenities">
-                      <span>En Adopción</span>
-                      <br />
-                      <span>5 años</span>
-                    </div>
-                    <div class="property-box__post-price">
-                      <div class="property-box__post-by">
-                        Subido por: <a href="#">Jaime</a>
+                    <div class="property-box__right">
+                      <div class="property-box__title h3">
+                        {publicacion.nombre}
                       </div>
-                      <div class="property-box__price">
-                        <span class="badge">Me Interesa</span>
+                      <div class="property-box__amenities">
+                        <span>{publicacion.descripcion}</span>
+                        <br />
+                        <span>{publicacion.fecha}</span>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="col-md-6">
-                <div class="property-box">
-                  <div class="property-box__left">
-                    <img src="assets/images/gato-blanco.png" alt="" />
-                  </div>
-                  <div class="property-box__right">
-                    <div class="property-box__title h3">
-                      <a href="#">Nievecita</a>
-                    </div>
-                    <div class="property-box__amenities">
-                      <span>Perdido</span>
-                      <br />
-                      <span>2 años</span>
-                    </div>
-                    <div class="property-box__post-price">
-                      <div class="property-box__post-by">
-                        Subido por: <a href="#">Amanda</a>
-                      </div>
-                      <div class="property-box__price">
-                        <span class="badge">Es mío</span>
+                      <div class="property-box__post-price">
+                        <div class="property-box__post-by">
+                          Subido por: {publicacion.usuario}
+                        </div>
+                        <div class="property-box__price">
+                          <span class="badge">Me Interesa</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </li>
-              <li class="col-md-6">
-                <div class="property-box">
-                  <div class="property-box__left">
-                    <img src="assets/images/labrador.jpeg" alt="" />
-                  </div>
-                  <div class="property-box__right">
-                    <div class="property-box__title h3">
-                      <a href="#">Labrador</a>
-                    </div>
-                    <div class="property-box__amenities">
-                      <span>En Adopción</span>
-                      <br />
-                      <span>4 años</span>
-                    </div>
-                    <div class="property-box__post-price">
-                      <div class="property-box__post-by">
-                        Subido por: <a href="#">Jorge</a>
-                      </div>
-                      <div class="property-box__price">
-                        <span class="badge">Me Interesa</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="col-md-6">
-                <div class="property-box">
-                  <div class="property-box__left">
-                    <img src="assets/images/caballo.jpeg" alt="" />
-                  </div>
-                  <div class="property-box__right">
-                    <div class="property-box__title h3">
-                      <a href="#">Caballo Pura Raza</a>
-                    </div>
-                    <div class="property-box__amenities">
-                      <span>En Apareamiento</span>
-                      <br />
-                      <span>14 años</span>
-                    </div>
-                    <div class="property-box__post-price">
-                      <div class="property-box__post-by">
-                        Subido por: <a href="#">Capo</a>
-                      </div>
-                      <div class="property-box__price">
-                        <span class="badge">Me Interesa</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
