@@ -396,7 +396,7 @@ function Mascota() {
                 {/*////////*/}
 
                 {/*Publicaciones*/}
-                {mascota.publicaciones.map((publicacion) => (
+                {mascota.publicaciones.slice().reverse().map((publicacion) => (
                   <div class="media" key={publicacion.id}>
                     <img
                       src={mascota.imagen}

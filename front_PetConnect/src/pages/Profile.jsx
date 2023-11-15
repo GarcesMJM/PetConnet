@@ -647,7 +647,7 @@ function Profile() {
                 <div></div>
 
                 {/*Publicaciones*/}
-                {usuario.mascotas.map((mascota) => (
+                {usuario.mascotas.slice().reverse().map((mascota) => (
                   <div class="media" key={mascota.id}>
                     <img
                       src={usuario.foto_perfil}
