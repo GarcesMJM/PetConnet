@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-export default function Leftsidebar() {
+const LeftSidebar = () => {
+  const [totalUsuarios, setTotalUsuarios] = useState(null);
+
+  useEffect(() => {
+    const obtenerTotalUsuarios = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/obtenertotalusuarios");
+        const data = await response.json();
+        setTotalUsuarios(data.totalUsuarios);
+      } catch (error) {
+        console.error('Error al obtener el número total de usuarios:', error);
+      }
+    };
+
+    obtenerTotalUsuarios();
+  }, []);
+
   return (
     <>
       <div className="col-md-3">
@@ -26,12 +42,12 @@ export default function Leftsidebar() {
           </div>
         </div>
 
-      <div className="card mt-4">
-        <div className="card-body">
-          <div className="h6 text-muted">Usuarios Totales</div>
-          <div className="h5">Número</div>
+        <div className="card mt-4">
+          <div className="card-body">
+            <div className="h6 text-muted">Usuarios Totales</div>
+            <div className="h5">{totalUsuarios}</div>
+          </div>
         </div>
-      </div>
 
       <div className="card">
         <div className="card-body">
@@ -45,3 +61,5 @@ export default function Leftsidebar() {
     </>
   );
 }
+
+export default LeftSidebar;
