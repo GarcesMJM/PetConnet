@@ -33,6 +33,9 @@ function Profile() {
   const [mostrarSeguidores, setMostrarSeguidores] = useState(false);
   const [siguiendo, setSiguiendo] = useState(false);
 
+  //BOTON////////////////////////////////////////////////////////////////////////////
+  
+
   //OBTENER USUARIO DUEÑO DEL PERFIL/////////////////////////////////////////////////
   const obtenerUsuario = async () => {
     try {
@@ -89,11 +92,17 @@ function Profile() {
   ///////////////////////////////////////////////////////////////////////////////////////
 
   const [edit, setEdit] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [nameuser, setNameuser] = useState("");
   const [lugarResidencia, setLugarResidencia] = useState("");
   const [lugarOrigen, setLugarOrigen] = useState("");
   const [phone, setPhone] = useState("");
   const [profile, setProfile] = useState(null);
+
+  const handleEditClick = () => {
+    setButtonDisabled(true);
+    setEdit(true);
+  };
 
   const handleNameChange = (e) => {
     setNameuser(e.target.value);
@@ -275,6 +284,11 @@ function Profile() {
 
   return (
     <div className="maincontainer">
+     <nav className="navbar navbar-light bg-light">
+        <a className="navbar-brand" href="#">
+          PetConnect
+        </a>
+      </nav>
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-4 col-xl-3 order-2 order-lg-1">
@@ -287,33 +301,33 @@ function Profile() {
                   width="128"
                   height="128"
                 />
-                <h4 class="card-title mb-0">{usuario.usuario}</h4>
+                <h4 class="card-title mb-2">{usuario.usuario}</h4>
 
                 <div>
                   {/*Solo para visitante del perfil*/}
                   {usuarioAutenticado && usuarioAutenticado.usuario !== usuario.usuario && (
-                  <>
-                    {siguiendo ? (
-                      <a class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
-                        Siguiendo
-                      </a>
-                    ) : (
-                      <a class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
-                        Seguir
-                      </a>
-                    )}
-                  </>
+                    <>
+                      {siguiendo ? (
+                        <button class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
+                          Siguiendo
+                        </button>
+                      ) : (
+                        <button class="btn btn-primary btn-sm" onClick={handleBotonSeguirClick}>
+                          Seguir
+                        </button>
+                      )}
+                    </>
                   )}
                    {/*Solo para el dueño del perfil*/}
                     {usuarioAutenticado &&
                       usuarioAutenticado.usuario === usuario.usuario && (
                         <>
                   <a
-                    class="btn btn-primary btn-sm"
+                    class="btn btn-primary btn-sm mb-2"
                     href="/login"
                     onClick={handleLogout}
                   >
-                    Sign out
+                    Cerrar Sesión
                   </a>
                   </>
                       )}
@@ -326,8 +340,10 @@ function Profile() {
               usuarioAutenticado.usuario === usuario.usuario && (
                 <>
                   <hr class="my-2" />
-                  <div class="text-muted mb-2" onClick={() => setEdit(true)}>
-                    Editar perfil
+                  <div className="text-muted mb-2" onClick={handleEditClick}>
+                    <button className="btn btn-light" disabled={buttonDisabled}>
+                      Editar perfil
+                    </button>
                   </div>
                   {edit && (
                     <div>
@@ -367,7 +383,7 @@ function Profile() {
                     class="text-muted mb-2"
                     onClick={() => setMostrarPanel(true)}
                   >
-                    Agregar mascota
+                    <button className="btn btn-light">Agregar mascota</button>
                   </div>
                   {mostrarPanel && (
                     <div>
@@ -391,7 +407,7 @@ function Profile() {
               <div class="card-header">
                 <div class="card-actions float-right">
                   <div class="dropdown show">
-                    <a href="#" data-toggle="dropdown" data-display="static">
+                    <a data-toggle="dropdown" data-display="static">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -411,15 +427,6 @@ function Profile() {
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -443,7 +450,7 @@ function Profile() {
                       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                       <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>{" "}
-                    Residencia: <a>{usuario.Residencia}</a>
+                    Residencia:<br/> <a>{usuario.Residencia}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -468,7 +475,7 @@ function Profile() {
                       ></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>{" "}
-                    Contacto: <a>{usuario.telefono}</a>
+                    Contacto: <br/> <a>{usuario.telefono}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -486,7 +493,7 @@ function Profile() {
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>{" "}
-                    Origen: <a>{usuario.Origen}</a>
+                    Origen: <br/><a>{usuario.Origen}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -511,7 +518,7 @@ function Profile() {
                       ></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>{" "}
-                    Contacto: <a>{usuario.email}</a>
+                    Contacto: <br/><a>{usuario.email}</a>
                   </li>
                 </ul>
               </div>
@@ -521,7 +528,7 @@ function Profile() {
               <div class="card-header">
                 <div class="card-actions float-right">
                   <div class="dropdown show">
-                    <a href="#" data-toggle="dropdown" data-display="static">
+                    <a data-toggle="dropdown" data-display="static">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -539,18 +546,6 @@ function Profile() {
                         <circle cx="5" cy="12" r="1"></circle>
                       </svg>
                     </a>
-
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
-                      </a>
-                    </div>
                   </div>
                 </div>
                 <h5 class="card-title mb-0">Conexiones</h5>
@@ -667,7 +662,7 @@ function Profile() {
               <div class="card-header">
                 <div class="card-actions float-right">
                   <div class="dropdown show">
-                    <a href="#" data-toggle="dropdown" data-display="static">
+                    <a href data-toggle="dropdown" data-display="static">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -685,18 +680,6 @@ function Profile() {
                         <circle cx="5" cy="12" r="1"></circle>
                       </svg>
                     </a>
-
-                    <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
-                      </a>
-                    </div>
                   </div>
                 </div>
                 <h5 class="card-title mb-0">Actividad Reciente</h5>
@@ -711,16 +694,16 @@ function Profile() {
                     alt="Jassa Jas"
                   />
                   <div class="media-body">
-                    <small class="float-right text-navy">5m ago</small>
-                    <strong>Jassa Jas</strong> started following{" "}
+                    <small class="float-right text-navy">Hace 5min </small>
+                    <strong>Jassa Jas</strong> siguió a{" "}
                     <strong>Marie Salter</strong>
                     <br />
-                    <small class="text-muted">Today 7:51 pm</small>
+                    <small class="text-muted">Hoy 7:51 pm</small>
                     <br />
                   </div>
                 </div>
                 <hr />
-                <a href="#" class="btn btn-primary btn-sm btn-block">
+                <a href class="btn btn-primary btn-sm btn-block">
                   Cargar más
                 </a>
               </div>
