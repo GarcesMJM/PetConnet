@@ -430,51 +430,32 @@ function Profile() {
                           onChange={handlePhoneChange}
                           placeholder="Teléfono"
                         />
-                        <div class="mb-1"></div>
-                        <label htmlFor="profileImage" className="custom-file-upload">
-                          {/* Texto personalizado */}
-                          <button class="btn btn-secondary">Seleccionar imagen </button>
-                        </label>
-                        <input
-                          id="profileImage"
-                          type="file"
-                          onChange={handleProfileChange}
-                          style={{ display: 'none' }}  // Oculta el input, pero sigue siendo accesible
-                        />
-                        <button class="btn btn-light" type="submit">Guardar</button>
+                        <input type="file" onChange={handleProfileChange} />
+
+                        <button type="submit">Guardar</button>
                       </form>
                     </div>
                   )}
                   <hr class="my-2" />
-                  <div class="text-muted mb-2" onClick={() => { setMostrarPanel(true); handleEditClick1(); }}>
-
-                    <button className="btn btn-light" disabled={buttonDisabled1}>Agregar mascota</button>
+                  <div
+                    class="text-muted mb-2"
+                    onClick={() => setMostrarPanel(true)}
+                  >
+                    <button className="btn btn-light">Agregar mascota</button>
                   </div>
                   {mostrarPanel && (
-                    <div id="general">
-                <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={nombreMascota}
-                    onChange={handleNombreChange}
-                    placeholder="Nombre de la mascota"
-                  />
-                  <div class="mb-1"></div>
-                  <label htmlFor="petImage" className="custom-file-upload">
-                    {/* Texto personalizado */}
-                    <button class="btn btn-secondary">Seleccionar imagen </button>
-                  </label>
-                  <input
-                    id="petImage"
-                    type="file"
-                    onChange={handleImagenChange}
-                    style={{ display: 'none' }}  // Oculta el input, pero sigue siendo accesible
-                  />
-                  <button className="btn btn-light" type="submit">
-                    Guardar
-                  </button>
-                </form>
-              </div>
+                    <div>
+                      <form onSubmit={handleSubmit}>
+                        <input type="file" onChange={handleImagenChange} />
+                        <input
+                          type="text"
+                          value={nombreMascota}
+                          onChange={handleNombreChange}
+                          placeholder="Nombre de la mascota"
+                        />
+                        <button type="submit">Guardar</button>
+                      </form>
+                    </div>
                   )}
                   <hr class="my-2" />
                   {usuarioAutenticado.fundacion!==2 && (
