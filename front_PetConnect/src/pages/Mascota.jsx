@@ -244,7 +244,7 @@ function Mascota() {
                       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                       <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>{" "}
-                    Raza: <a>Mestizo</a>
+                    Raza: <a>{mascota.raza}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -269,7 +269,7 @@ function Mascota() {
                       ></rect>
                       <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                     </svg>{" "}
-                    Estado: <a>En adopción</a>
+                    Estado: <a>{mascota.estado}</a>
                   </li>
                   <li class="mb-1">
                     <svg
@@ -287,7 +287,7 @@ function Mascota() {
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>{" "}
-                    Edad: <a>3 años</a>
+                    Nacimiento: <a>{mascota.edad}</a>
                   </li>
                 </ul>
               </div>
