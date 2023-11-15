@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 import "../css/Mascota.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
+import Navbar from "../components/Navbar";  // Importa el componente Navbar
+import Swal from 'sweetalert2';  // Importa SweetAlert2
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDp11FAxsh_JtvCyzj8sf9OXbmBO4PGBt8",
@@ -182,6 +185,9 @@ function Mascota() {
 
   return (
     <div className="maincontainer">
+      <div className="navbar-container">
+        <Navbar></Navbar>
+      </div> 
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-4 col-xl-3 order-2 order-lg-1">

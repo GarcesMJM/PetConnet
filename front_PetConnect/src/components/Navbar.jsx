@@ -56,9 +56,9 @@ export default function Navbar() {
   return (
     <div className="navbar-container">
       <nav className="navbar navbar-light bg-white">
-        <button className="navbar-brand" id="navbar-brand" type="button">
-          PetConnect
-        </button>
+        <Link to="" className="navbar-brand" id="navbar-brand" type="button">
+              PetConnect
+            </Link>
         <form className="form-inline">
           {/* Contenido del formulario, si es necesario */}
         </form>
