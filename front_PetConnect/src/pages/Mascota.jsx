@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import "../css/Mascota.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -335,26 +336,25 @@ function Mascota() {
                 </div>
                 <h5 class="card-title mb-0">Responsable</h5>
               </div>
-              <div class="card-body">
-                <div class="media">
-                  <img
-                    src={usuario.foto_perfil}
-                    width="56"
-                    height="56"
-                    class="rounded-circle mr-2"
-                    alt="Andrew Jones"
-                  />
-                  <div class="media-body">
-                    <p class="my-1">
-                      <strong>{usuario.usuario}</strong>
+              <div className="card-body">
+                <div className="media">
+                  <Link to={`/profile/${usuario.usuario}`}>
+                    <img
+                      src={usuario.foto_perfil}
+                      width="56"
+                      height="56"
+                      className="rounded-circle mr-2"
+                      alt="Andrew Jones"
+                    />
+                  </Link>
+                  <div className="media-body">
+                    <p className="my-1">
+                        <Link to={`/profile/${usuario.usuario}`} className="custom-link">
+                         <p>{usuario.usuario}</p> 
+                        </Link>
                     </p>
-                    <a class="btn btn-sm btn-outline-primary" href="#">
-                      Unfollow
-                    </a>
                   </div>
                 </div>
-
-                <hr class="my-2" />
               </div>
             </div>
           </div>

@@ -246,3 +246,8 @@
   {
     margin-right: 3px;
   }
+
+  .custom-link {
+    color: #000; /* Cambia el color del texto según tus necesidades */
+    text-decoration: none; /* Elimina el subrayado */
+  }
