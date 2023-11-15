@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import "../css/Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from 'react-modal';
+import Navbar from "../components/Navbar";  // Importa el componente Navbar
+
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -289,12 +291,17 @@ function Profile() {
 
   return (
     <div className="maincontainer">
-     <nav className="navbar navbar-light bg-light">
-        <a className="navbar-brand" href="#">
-          PetConnect
-        </a>
-      </nav>
-      <div class="container">
+      <div className="navbar-container">
+        <nav className="navbar navbar-light bg-light">
+          <Link to={`/profile/${usuario.usuario}`} className="navbar-brand">
+            PetConnect
+          </Link>
+          <Link to="/posts" className="btn btn-primary">
+          Posts
+          </Link>
+        </nav>
+      </div> 
+        <div class="container">
         <div class="row">
           <div class="col-12 col-lg-4 col-xl-3 order-2 order-lg-1">
             <div class="card mb-3">

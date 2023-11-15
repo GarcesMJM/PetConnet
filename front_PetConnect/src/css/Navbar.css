@@ -1,3 +1,46 @@
-.navbar-brand{
-    margin-left: 15px;
-}
+/* Navbar.css */
+
+.navbar-container {
+    margin-left: 20px; /* Ajusta el margen inferior de la barra de navegación */
+    margin-right: 20px; /* Ajusta el margen superior de la barra de navegación */
+  }
+  
+  .navbar {
+    margin: 0; /* Elimina el margen predeterminado de la barra de navegación */
+  }
+  
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  
+  .user-menu {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  /* Estilos adicionales para el ícono de usuario */
+  .user-icon {
+    cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
+    margin-right: 10px; /* Agrega un espacio entre el ícono y el texto si es necesario */
+  }
+
+  .navbar-brand {
+    font-size: 30px;
+    font-weight: bold !important;
+    color: #0d65e5 !important;
+    cursor: pointer;
+    border: none !important;
+    background: none !important;
+    outline: none !important;
+  }
+  
+  
