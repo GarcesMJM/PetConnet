@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import imagen from "../Assets/cat-2934720_1280.jpg";
 import "../css/Navbar.css";
+import Swal from 'sweetalert2';  // Añade esta línea
+
 
 
 import user_icon from "../Assets/person.png";
@@ -42,11 +44,13 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (data.message == true) {
-        window.alert("Usuario registrado exitosamente");
+      if (data.message === true) {
+        // Cambia el window.alert por SweetAlert2
+        Swal.fire('Usuario registrado exitosamente', '', 'success');
         setAction("Iniciar Sesión");
       } else {
-        window.alert("Error al registrar el usuario");
+        // Cambia el window.alert por SweetAlert2
+        Swal.fire('Error al registrar el usuario', '', 'error');
       }
 
       setUsername("");
@@ -69,12 +73,14 @@ const Login = () => {
 
       const data = await response.json();
       console.log("Respuesta del servidor:", data.message);
-      window.alert(data.message);
+
+      // Cambia el window.alert por SweetAlert2
+      Swal.fire(data.message, '', data.token ? 'success' : 'error');
+
       if (data.token) {
         localStorage.setItem("token", data.token);
         navigate(`/profile/${data.usuario}`, { replace: true });
       }
-      // Almacena el token en el Local Storage
     } catch (error) {
       console.error("Error al enviar datos al backend:", error);
     }

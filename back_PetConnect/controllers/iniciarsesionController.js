@@ -3,6 +3,8 @@ const admin = require('firebase-admin');
 const { auth } = require('../firebase/config.js')
 const firebaseAuth = require('firebase/auth');
 const { sign } = require("jsonwebtoken");
+// Importa SweetAlert
+const Swal = require('sweetalert2');
 
 async function Login(req, res) {
   try {

@@ -5,6 +5,8 @@ import "../css/Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from 'react-modal';
 import Navbar from "../components/Navbar";  // Importa el componente Navbar
+import Swal from 'sweetalert2';  // Importa SweetAlert2
+
 
 
 // Import the functions you need from the SDKs you need
@@ -110,7 +112,6 @@ function Profile() {
   const [profile, setProfile] = useState(null);
 
   const handleEditClick = () => {
-    setButtonDisabled(true);
     setEdit(true);
   };
   const handleEditClick1 = () => {
@@ -144,7 +145,7 @@ function Profile() {
     const refArchivo = ref(storage, `Fotos usuarios/${archivoI.name}`);
     await uploadBytes(refArchivo, archivoI);
     const urlImDesc = await getDownloadURL(refArchivo);
-
+  
     try {
       const response = await fetch("http://localhost:5000/cambiarfoto", {
         method: "POST",
@@ -161,13 +162,18 @@ function Profile() {
           token: localStorage.getItem("token"),
         }),
       });
-
+  
       const data = await response.json();
-
-      window.alert(data.message);
-
+  
+      Swal.fire({
+        title: 'Ex',
+        text: data.message,
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
+  
       obtenerUsuario();
-
+  
       setEdit(false);
     } catch (error) {
       console.error(
@@ -338,14 +344,7 @@ function Profile() {
   return (
     <div className="maincontainer">
       <div className="navbar-container">
-        <nav className="navbar navbar-light bg-light">
-          <Link to={`/profile/${usuario.usuario}`} className="navbar-brand">
-            PetConnect
-          </Link>
-          <Link to="/posts" className="btn btn-primary">
-          Posts
-          </Link>
-        </nav>
+        <Navbar></Navbar>
       </div> 
         <div class="container">
         <div class="row">
@@ -399,7 +398,7 @@ function Profile() {
                 <>
                   <hr class="my-2" />
                   <div className="text-muted mb-2" onClick={handleEditClick}>
-                    <button className="btn btn-light" disabled={buttonDisabled}>
+                    <button className="btn btn-light">
                       Editar perfil
                     </button>
                   </div>
