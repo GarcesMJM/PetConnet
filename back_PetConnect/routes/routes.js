@@ -12,6 +12,8 @@ const agregarSeguidorController = require('../controllers/agregarSeguidorControl
 const eliminarSeguidorController = require('../controllers/eliminarSeguidorController');
 const obtenerPublicacionesController = require('../controllers/obtenerPublicacionesController');
 const totalUsuariosController = require('../controllers/totalUsuariosController'); // Importa el controlador
+const totalMascotasController = require('../controllers/totalMascotasController'); // Importa el nuevo controlador
+
 
 // Rutas de autenticación
 router.post('/register', registroController);
@@ -30,6 +32,7 @@ router.post('/eliminarseguidor', eliminarSeguidorController);
 
 router.get('/obtenerpublicaciones', obtenerPublicacionesController);
 router.get('/obtenertotalusuarios', totalUsuariosController.obtenerTotalUsuarios);
+router.get('/obtenertotalmascotas', totalMascotasController.obtenerTotalMascotas);
 
 
 module.exports = router;

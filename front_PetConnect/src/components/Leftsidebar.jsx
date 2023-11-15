@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 const LeftSidebar = () => {
   const [totalUsuarios, setTotalUsuarios] = useState(null);
+  const [totalMascotas, setTotalMascotas] = useState(null);
+
 
   useEffect(() => {
     const obtenerTotalUsuarios = async () => {
@@ -14,7 +16,18 @@ const LeftSidebar = () => {
       }
     };
 
+    const obtenerTotalMascotas = async () => {
+      try {
+        const responseMascotas = await fetch("http://localhost:5000/obtenertotalmascotas");
+        const dataMascotas = await responseMascotas.json();
+        setTotalMascotas(dataMascotas.totalMascotas);
+      } catch (error) {
+        console.error('Error al obtener el número total de mascotas:', error);
+      }
+    };
+
     obtenerTotalUsuarios();
+    obtenerTotalMascotas();
   }, []);
 
   return (
@@ -52,7 +65,7 @@ const LeftSidebar = () => {
       <div className="card">
         <div className="card-body">
           <div className="h6 text-muted">Mascotas Totales</div>
-          <div className="h5">Número</div>
+          <div className="h5">{totalMascotas}</div>
         </div>
       </div>
 
