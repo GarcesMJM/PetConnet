@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import "../css/Profile.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Modal from 'react-modal';
+import Navbar from "../components/Navbar";  // Importa el componente Navbar
+
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -34,6 +36,8 @@ function Profile() {
   const [mostrarSeguidos, setMostrarSeguidos] = useState(false);
   const [mostrarSolicitud, setMostrarSolicitud] = useState(false);
   const [siguiendo, setSiguiendo] = useState(false);
+
+
 
   //BOTON////////////////////////////////////////////////////////////////////////////
   
@@ -94,7 +98,11 @@ function Profile() {
   ///////////////////////////////////////////////////////////////////////////////////////
 
   const [edit, setEdit] = useState(false);
+  const [edit1, setEdit1] = useState(false);
+
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  const [buttonDisabled1, setButtonDisabled1] = useState(false);
+
   const [nameuser, setNameuser] = useState("");
   const [lugarResidencia, setLugarResidencia] = useState("");
   const [lugarOrigen, setLugarOrigen] = useState("");
@@ -104,6 +112,10 @@ function Profile() {
   const handleEditClick = () => {
     setButtonDisabled(true);
     setEdit(true);
+  };
+  const handleEditClick1 = () => {
+    setButtonDisabled1(true);
+    setEdit1(true);
   };
 
   const handleNameChange = (e) => {
@@ -277,6 +289,9 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setButtonDisabled1(true);
+    setEdit1(true);
+
     const ArchivoI = imagenMascota;
     const refArchivo = ref(storage, `Fotos mascotas/${ArchivoI.name}`);
     await uploadBytes(refArchivo, ArchivoI);
@@ -322,14 +337,19 @@ function Profile() {
 
   return (
     <div className="maincontainer">
-     <nav className="navbar navbar-light bg-light">
-        <a className="navbar-brand" href="#">
-          PetConnect
-        </a>
-      </nav>
-      <div class="container">
+      <div className="navbar-container">
+        <nav className="navbar navbar-light bg-light">
+          <Link to={`/profile/${usuario.usuario}`} className="navbar-brand">
+            PetConnect
+          </Link>
+          <Link to="/posts" className="btn btn-primary">
+          Posts
+          </Link>
+        </nav>
+      </div> 
+        <div class="container">
         <div class="row">
-          <div class="col-12 col-lg-4 col-xl-3 order-2 order-lg-1">
+          <div class="col-12 col-lg-4 col-xl-3 order-3 order-lg-2">
             <div class="card mb-3">
               <div class="card-body text-center">
                 <img
@@ -410,32 +430,51 @@ function Profile() {
                           onChange={handlePhoneChange}
                           placeholder="Teléfono"
                         />
-                        <input type="file" onChange={handleProfileChange} />
-
-                        <button type="submit">Guardar</button>
+                        <div class="mb-1"></div>
+                        <label htmlFor="profileImage" className="custom-file-upload">
+                          {/* Texto personalizado */}
+                          <button class="btn btn-secondary">Seleccionar imagen </button>
+                        </label>
+                        <input
+                          id="profileImage"
+                          type="file"
+                          onChange={handleProfileChange}
+                          style={{ display: 'none' }}  // Oculta el input, pero sigue siendo accesible
+                        />
+                        <button class="btn btn-light" type="submit">Guardar</button>
                       </form>
                     </div>
                   )}
                   <hr class="my-2" />
-                  <div
-                    class="text-muted mb-2"
-                    onClick={() => setMostrarPanel(true)}
-                  >
-                    <button className="btn btn-light">Agregar mascota</button>
+                  <div class="text-muted mb-2" onClick={() => { setMostrarPanel(true); handleEditClick1(); }}>
+
+                    <button className="btn btn-light" disabled={buttonDisabled1}>Agregar mascota</button>
                   </div>
                   {mostrarPanel && (
-                    <div>
-                      <form onSubmit={handleSubmit}>
-                        <input type="file" onChange={handleImagenChange} />
-                        <input
-                          type="text"
-                          value={nombreMascota}
-                          onChange={handleNombreChange}
-                          placeholder="Nombre de la mascota"
-                        />
-                        <button type="submit">Guardar</button>
-                      </form>
-                    </div>
+                    <div id="general">
+                <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={nombreMascota}
+                    onChange={handleNombreChange}
+                    placeholder="Nombre de la mascota"
+                  />
+                  <div class="mb-1"></div>
+                  <label htmlFor="petImage" className="custom-file-upload">
+                    {/* Texto personalizado */}
+                    <button class="btn btn-secondary">Seleccionar imagen </button>
+                  </label>
+                  <input
+                    id="petImage"
+                    type="file"
+                    onChange={handleImagenChange}
+                    style={{ display: 'none' }}  // Oculta el input, pero sigue siendo accesible
+                  />
+                  <button className="btn btn-light" type="submit">
+                    Guardar
+                  </button>
+                </form>
+              </div>
                   )}
                   <hr class="my-2" />
                   {usuarioAutenticado.fundacion!==2 && (
@@ -500,7 +539,7 @@ function Profile() {
                   )}
             {/*////////*/}
 
-            <div class="card mb-3">
+            <div class="card mb-3" id="general">
               <div class="card-header">
                 <div class="card-actions float-right">
                   <div class="dropdown show">

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
 import imagen from "../Assets/cat-2934720_1280.jpg";
+import "../css/Navbar.css";
+
 
 import user_icon from "../Assets/person.png";
 import email_icon from "../Assets/email.png";
