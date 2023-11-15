@@ -1,7 +1,7 @@
 const express = require('express');
 const admin = require('firebase-admin');
 const cors = require('cors');
-const serviceAccount = require('C:\\Users\\Camilo\\Documents\\petconnect.json');
+const serviceAccount = require('./firebase/keys/clave.json');
 
 const app = express();
 
