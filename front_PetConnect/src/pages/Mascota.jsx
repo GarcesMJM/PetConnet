@@ -194,6 +194,19 @@ function Mascota() {
                   height="128"
                 />
                 <h4 class="card-title mb-0">{mascota.nombre}</h4>
+                      {/*Solo para el dueño del perfil*/}
+                      {usuarioAutenticado &&
+                      usuarioAutenticado.usuario === usuario.usuario && (
+                        <>
+                  <a
+                    class= "btn-sm mb-2"
+                    href="/login"
+                    onClick=""
+                  >
+                    <button class="btn btn-primary">Volver al perfil</button>
+                  </a>
+                  </>
+                      )}
                 
               </div>
             </div>
@@ -201,7 +214,7 @@ function Mascota() {
               <div class="card-header">
                 <div class="card-actions float-right">
                   <div class="dropdown show">
-                    <a href="#" data-toggle="dropdown" data-display="static">
+                    <a href data-toggle="dropdown" data-display="static">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -221,15 +234,6 @@ function Mascota() {
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -306,7 +310,7 @@ function Mascota() {
               <div class="card-header">
                 <div class="card-actions float-right">
                   <div class="dropdown show">
-                    <a href="#" data-toggle="dropdown" data-display="static">
+                    <a href data-toggle="dropdown" data-display="static">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -326,15 +330,6 @@ function Mascota() {
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -374,7 +369,7 @@ function Mascota() {
                  (
                   <>
                   <form onSubmit={handleSubmit}>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                       <textarea
                         class="form-control"
                         rows="3"
@@ -383,7 +378,7 @@ function Mascota() {
                         onChange={handleTextoChange}
                       />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                       <input
                         type="file"
                         class="form-control-file"
@@ -426,7 +421,7 @@ function Mascota() {
                       </div>
                       <small class="text-muted">Today 7:21 pm</small>
                       <br />
-                      <a href="#" class="btn btn-sm btn-danger mt-1">
+                      <a href class="btn btn-sm btn-danger mt-1">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="24"
@@ -457,7 +452,7 @@ function Mascota() {
               <div class="card-header">
                 <div class="card-actions float-right">
                   <div class="dropdown show">
-                    <a href="#" data-toggle="dropdown" data-display="static">
+                    <a href data-toggle="dropdown" data-display="static">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -477,15 +472,6 @@ function Mascota() {
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="#">
-                        Action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Another action
-                      </a>
-                      <a class="dropdown-item" href="#">
-                        Something else here
-                      </a>
                     </div>
                   </div>
                 </div>
@@ -510,7 +496,7 @@ function Mascota() {
                   </div>
                 </div>
                 <hr />
-                <a href="#" class="btn btn-primary btn-sm btn-block">
+                <a href class="btn btn-primary btn-sm btn-block">
                   Cargar más
                 </a>
               </div>
