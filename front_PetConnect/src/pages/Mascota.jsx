@@ -194,21 +194,7 @@ function Mascota() {
                   width="128"
                   height="128"
                 />
-                <h4 class="card-title mb-0">{mascota.nombre}</h4>
-                      {/*Solo para el dueño del perfil*/}
-                      {usuarioAutenticado &&
-                      usuarioAutenticado.usuario === usuario.usuario && (
-                        <>
-                  <a
-                    class= "btn-sm mb-2"
-                    href="/login"
-                    onClick=""
-                  >
-                    <button class="btn btn-primary">Volver al perfil</button>
-                  </a>
-                  </>
-                      )}
-                
+                <h4 class="card-title mb-0">{mascota.nombre}</h4>                
               </div>
             </div>
             <div class="card mb-3">
