@@ -172,7 +172,7 @@ const Login = () => {
                   ) : (
                     <div className="forgot-password">
                       <span>
-                        <Link to="/olvidocontraseña">Ingresa aquí</Link>
+                        <Link to="/olvidocontraseña">  </Link>
                       </span>
                     </div>
                   )}
